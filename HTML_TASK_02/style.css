@@ -1,0 +1,26 @@
+table{
+    width: 40%;
+    height: auto;
+}
+table, th, td {
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+.heading{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Roboto',sans-serif;
+    padding: 20px 0px;
+}
+.input-area{
+    padding: 10px 0px;
+    padding-left: 5px;
+}
+.input-box{
+    width: 80%;
+    padding: 5px;
+    border-radius: 0px;
+    border: none;
+    border: 1px solid black;
+}
