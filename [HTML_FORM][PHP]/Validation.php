@@ -102,7 +102,7 @@
 	$day= $_POST['day'];
 	$month= $_POST['month'];
 	$year = $_POST['year'];
-	#$degree = $_POST['degree_info'];
+	$degree = $_POST['degree_info'];
 	#$blood = $_POST['blood'];
 	#$picture = $_POST['profile_picture'];
 	$submitbutton = $_POST['submit_btn'];
@@ -113,11 +113,13 @@
 		$validEmail = email_validation($email_field);
 		$validGender = gender_validation($gender);
 		$validDate = date_validation($day,$month,$year);
-		if($validName == 1 && $validEmail == 1 && $validGender == 1 && $validDate == 1){
+		$validDegree = degree_validation($degree);
+		if($validName == 1 && $validEmail == 1 && $validGender == 1 && $validDate == 1 && $validDegree == 1){
             echo '<h4>Name : ' . $name_field . '</h4>';
 			echo '<h4>Email : ' . $email_field . '</h4>';
 			echo '<h4>Gender : ' . $gender . '</h4>';
 			echo '<h4>DoB : ' . $day . ' / ' . $month . ' / ' . $year . '</h4>';
+			echo '<h4>Degree : ' . $degree . '</h4>';
         }
         else{
 			echo '<br>INVALID DATA..';
@@ -160,6 +162,7 @@
 		}
 		else{
 			echo '<h4>Please Select Gender </h4>';
+			return -1;
 		}
 	}
 
@@ -181,4 +184,15 @@
 			return -1;
 		}
 	}
+
+	function degree_validation($degree){
+		if(!empty($degree)){
+			return 1;
+		}
+		else{
+			echo '<h4>Please Select Degre </h4>';
+			return -1;
+		}
+	}
+	
 ?>
