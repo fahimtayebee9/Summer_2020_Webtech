@@ -1,0 +1,64 @@
+table{
+    width: 60%;
+    height: auto;
+    margin: auto;
+}
+table, th, td {
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+td{
+    width: fit-content;
+}
+.heading{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Roboto',sans-serif;
+    padding: 20px 0px;
+}
+.input-area{
+    padding: 10px 0px;
+    padding-left: 5px;
+}
+.input-box{
+    width: 80%;
+    padding: 5px;
+    border-radius: 0px;
+    border: none;
+    border: 1px solid black;
+}
+.date-area{
+    width: 15%;
+    padding: 5px;
+}
+.blood-group{
+    
+}
+.photo-box{
+    display: flex;
+}
+.photo-box p{
+    padding-left: 15px;
+}
+.photo-box input[type="button"]{
+    padding: 0px 10px;
+    font-size: 18px;
+}
+.blank{
+    padding: 30px 0px;
+}
+.button-area{
+    float: right;
+}
+.button-area input[type="button"]{
+    padding: 5px 10px;
+    margin-right: 20px;
+}
+.title{
+    font-size: 18px;
+    padding-left: 10px;
+}
+.blank-td{
+    width: 5%;
+}
