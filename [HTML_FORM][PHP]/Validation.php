@@ -28,9 +28,9 @@
 			<tr>
 				<td class="title">Gender</td>
 				<td class="input-box">
-					<input type="radio" name="gender" value="" >  Male 
-                    <input type="radio" name="gender" value="" > Female
-                    <input type="radio" name="gender" value="" > Other
+					<input type="radio" name="gender" value="Male" >  Male 
+                    <input type="radio" name="gender" value="Female" > Female
+                    <input type="radio" name="gender" value="Other" > Other
 				</td>
 				<td class="blank-td"></td>
             </tr>
@@ -98,7 +98,7 @@
 <?php
 	$name_field= $_POST['name_inout'];
 	$email_field= $_POST['email_inout'];
-	#$gender= $_POST['gender'];
+	$gender= $_POST['gender'];
 	#$day= $_POST['day'];
 	#$month= $_POST['month'];
 	#$year = $_POST['year'];
@@ -110,10 +110,12 @@
 	echo "<h1>Informations Inserted</h1>";
 	if ($submitbutton){
         $validName = name_validation($name_field);
-        $validEmail = email_validation($email_field);
-		if($validName == 1 && $validEmail == 1){
+		$validEmail = email_validation($email_field);
+		$validGender = gender_validation($gender);
+		if($validName == 1 && $validEmail == 1 && $validGender == 1){
             echo '<h4>Name : ' . $name_field . '</h4>';
-            echo '<h4>Email : ' . $email_field . '</h4>';
+			echo '<h4>Email : ' . $email_field . '</h4>';
+			echo '<h4>Gender : ' . $gender . '</h4>';
         }
         else{
 			echo '<br>INVALID DATA..';
@@ -147,5 +149,14 @@
         else{
             return -1;
         }
-    }
+	}
+	
+	function gender_validation($gender){
+		if(!empty($gender)){
+			return 1;
+		}
+		else{
+			echo '<h4>Please Select Gender </h4>';
+		}
+	}
 ?>
