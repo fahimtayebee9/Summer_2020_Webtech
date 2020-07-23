@@ -28,9 +28,9 @@
 			<tr>
 				<td class="title">Gender</td>
 				<td class="input-box">
-					<input type="radio" name="gender" value="Male" >  Male 
-                    <input type="radio" name="gender" value="Female" > Female
-                    <input type="radio" name="gender" value="Other" > Other
+					<input type="radio" name="gender_inout" value="Male" >  Male 
+                    <input type="radio" name="gender_inout" value="Female" > Female
+                    <input type="radio" name="gender_inout" value="Other" > Other
 				</td>
 				<td class="blank-td"></td>
             </tr>
@@ -62,10 +62,10 @@
             <tr>
 				<td class="title">Degree</td>
 				<td class="input-area">
-					<input type="checkbox" name="degree_info"/> SSC
-					<input type="checkbox" name="degree_info"/> HSC
-					<input type="checkbox" name="degree_info"/> BSc.
-                    <input type="checkbox" name="degree_info"/> MSc.
+					<input type="checkbox" name="degree_info" value= "SSC"/> SSC
+					<input type="checkbox" name="degree_info" value= "HSC"/> HSC
+					<input type="checkbox" name="degree_info" value= "BSc."/> BSc.
+                    <input type="checkbox" name="degree_info" value= "MSc."/> MSc.
 				</td>
 				<td class="blank-td"></td>
             </tr>
@@ -98,10 +98,10 @@
 <?php
 	$name_field= $_POST['name_inout'];
 	$email_field= $_POST['email_inout'];
-	$gender= $_POST['gender'];
-	#$day= $_POST['day'];
-	#$month= $_POST['month'];
-	#$year = $_POST['year'];
+	$gender= $_POST['gender_inout'];
+	$day= $_POST['day'];
+	$month= $_POST['month'];
+	$year = $_POST['year'];
 	#$degree = $_POST['degree_info'];
 	#$blood = $_POST['blood'];
 	#$picture = $_POST['profile_picture'];
@@ -112,15 +112,18 @@
         $validName = name_validation($name_field);
 		$validEmail = email_validation($email_field);
 		$validGender = gender_validation($gender);
-		if($validName == 1 && $validEmail == 1 && $validGender == 1){
+		$validDate = date_validation($day,$month,$year);
+		if($validName == 1 && $validEmail == 1 && $validGender == 1 && $validDate == 1){
             echo '<h4>Name : ' . $name_field . '</h4>';
 			echo '<h4>Email : ' . $email_field . '</h4>';
 			echo '<h4>Gender : ' . $gender . '</h4>';
+			echo '<h4>DoB : ' . $day . ' / ' . $month . ' / ' . $year . '</h4>';
         }
         else{
 			echo '<br>INVALID DATA..';
 		}
 	}
+
 	function name_validation($name_field){
         $req = 0;
 		if (!empty($name_field) ) {
@@ -157,6 +160,25 @@
 		}
 		else{
 			echo '<h4>Please Select Gender </h4>';
+		}
+	}
+
+	function date_validation($day,$month,$year){
+		$valid = 0;
+		if($day >= 1 && $day <= 31){
+			$valid += 1;
+		}
+		if($month >= 1 && $month <= 12){
+			$valid += 1;
+		}
+		if($year >= 1990 && $year <= 2021){
+			$valid += 1;
+		}
+		if($valid == 3){
+			return 1;
+		}
+		else{
+			return -1;
 		}
 	}
 ?>
