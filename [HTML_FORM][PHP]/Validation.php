@@ -47,14 +47,14 @@
 				<td class="title">Blood Group</td>
 				<td class="input-area">
 					<select name="blood" class="blood-group">
-						<option value="">A+</option>
-						<option value="">A-</option>
-						<option value="">B+</option>
-						<option value="">B-</option>
-						<option value="">AB+</option>
-						<option value="">AB-</option>
-						<option value="">O+</option>
-						<option value="">O-</option>
+						<option value="A+" selected>A+</option>
+						<option value="A-">A-</option>
+						<option value="B+">B+</option>
+						<option value="B-">B-</option>
+						<option value="AB+">AB+</option>
+						<option value="AB-">AB-</option>
+						<option value="O+">O+</option>
+						<option value="O-">O-</option>
                     </select>
 				</td>
 				<td class="blank-td"></td>
@@ -73,8 +73,8 @@
                 <td class="title">Photo</td>
                 <td class="input-area ">
                     <div class="photo-box">
-                        <input type="button" name=' profile_picture' value="Browse.."> 
-                        <p>No file selected.</p>
+						<button onclick="document.getElementById('getFile').click()">Browse...</button>
+						<input type='file' id="getFile" style="display:none">
                     </div>
                 </td>
                 <td class="blank-td"></td>
@@ -103,7 +103,7 @@
 	$month= $_POST['month'];
 	$year = $_POST['year'];
 	$degree = $_POST['degree_info'];
-	#$blood = $_POST['blood'];
+	$blood = $_POST['blood'];
 	#$picture = $_POST['profile_picture'];
 	$submitbutton = $_POST['submit_btn'];
 
@@ -114,12 +114,14 @@
 		$validGender = gender_validation($gender);
 		$validDate = date_validation($day,$month,$year);
 		$validDegree = degree_validation($degree);
-		if($validName == 1 && $validEmail == 1 && $validGender == 1 && $validDate == 1 && $validDegree == 1){
+		$validBlood = bloodGroup_validation($blood);
+		if($validName == 1 && $validEmail == 1 && $validGender == 1 && $validDate == 1 && $validDegree == 1 && $validBlood == 1){
             echo '<h4>Name : ' . $name_field . '</h4>';
 			echo '<h4>Email : ' . $email_field . '</h4>';
 			echo '<h4>Gender : ' . $gender . '</h4>';
 			echo '<h4>DoB : ' . $day . ' / ' . $month . ' / ' . $year . '</h4>';
 			echo '<h4>Degree : ' . $degree . '</h4>';
+			echo '<h4>Blood Group : ' . $blood . '</h4>';
         }
         else{
 			echo '<br>INVALID DATA..';
@@ -194,5 +196,14 @@
 			return -1;
 		}
 	}
-	
+
+	function bloodGroup_validation($blood){
+		if(!empty($blood)){
+			return 1;
+		}
+		else{
+			echo '<h4>Please Select Blood Group </h4>';
+			return -1;
+		}
+	}
 ?>
