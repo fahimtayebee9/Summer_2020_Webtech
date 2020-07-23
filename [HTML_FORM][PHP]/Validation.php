@@ -97,7 +97,7 @@
 </body>
 <?php
 	$name_field= $_POST['name_inout'];
-	#$email_field= $_POST['email_inout'];
+	$email_field= $_POST['email_inout'];
 	#$gender= $_POST['gender'];
 	#$day= $_POST['day'];
 	#$month= $_POST['month'];
@@ -111,8 +111,9 @@
 	if ($submitbutton){
         $validName = name_validation($name_field);
         $validEmail = email_validation($email_field);
-		if($validName == 1){
+		if($validName == 1 && $validEmail == 1){
             echo '<h4>Name : ' . $name_field . '</h4>';
+            echo '<h4>Email : ' . $email_field . '</h4>';
         }
         else{
 			echo '<br>INVALID DATA..';
@@ -132,6 +133,15 @@
 			}
 		}
 		if($req == 3){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+    }
+    
+    function email_validation($email_field){
+        if(!empty($email_field) && filter_var($email_field, FILTER_VALIDATE_EMAIL)){
             return 1;
         }
         else{
