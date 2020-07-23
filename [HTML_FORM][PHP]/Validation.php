@@ -73,8 +73,7 @@
                 <td class="title">Photo</td>
                 <td class="input-area ">
                     <div class="photo-box">
-						<button onclick="document.getElementById('getFile').click()">Browse...</button>
-						<input type='file' id="getFile" style="display:none">
+						<input type='file' id="fileSelected" value="Browse" name="profile_image"> 
                     </div>
                 </td>
                 <td class="blank-td"></td>
@@ -104,7 +103,8 @@
 	$year = $_POST['year'];
 	$degree = $_POST['degree_info'];
 	$blood = $_POST['blood'];
-	#$picture = $_POST['profile_picture'];
+	$file_name = "";
+	#$picture = $_FILES["profile_image"]["name"]; #$_POST['profile_picture'];
 	$submitbutton = $_POST['submit_btn'];
 
 	echo "<h1>Informations Inserted</h1>";
@@ -115,6 +115,7 @@
 		$validDate = date_validation($day,$month,$year);
 		$validDegree = degree_validation($degree);
 		$validBlood = bloodGroup_validation($blood);
+		$validImage = image_validation();
 		if($validName == 1 && $validEmail == 1 && $validGender == 1 && $validDate == 1 && $validDegree == 1 && $validBlood == 1){
             echo '<h4>Name : ' . $name_field . '</h4>';
 			echo '<h4>Email : ' . $email_field . '</h4>';
@@ -122,6 +123,7 @@
 			echo '<h4>DoB : ' . $day . ' / ' . $month . ' / ' . $year . '</h4>';
 			echo '<h4>Degree : ' . $degree . '</h4>';
 			echo '<h4>Blood Group : ' . $blood . '</h4>';
+			echo '<h4> File Name : '.$validImage.'</>';
         }
         else{
 			echo '<br>INVALID DATA..';
@@ -204,6 +206,13 @@
 		else{
 			echo '<h4>Please Select Blood Group </h4>';
 			return -1;
+		}
+	}
+
+	function image_validation(){
+		if(isset($_FILES['profile_image'])){
+			$file_name = $_FILES['profile_image']['name'];
+			return $file_name;
 		}
 	}
 ?>
