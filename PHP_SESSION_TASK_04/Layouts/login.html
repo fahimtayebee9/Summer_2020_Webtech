@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Home</title>
+    <style>
+        ul{
+            list-style: none;
+            display: flex;
+            float: right;
+        }
+        ul li{
+            padding: 20px;
+        }
+        table, th, td {
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+        td{
+            width: fit-content;
+        }
+        table{
+            width: 60%;
+        }
+        tr{
+            border: 2px solid black;
+        }
+        h1{
+            display: inline;
+        }
+        h2{
+            padding: 30px;
+        }
+        h6{
+            text-align: center;
+        }
+        .block-set{
+            display: flex;
+        }
+        form{
+            padding: 40px;
+        }
+        input{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .space{
+            padding-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <h1>X-Company</h1>
+                <ul>
+                    <li><a href="/Layouts/home.html">Home</a></li>
+                    <li><a href="/Layouts/login.html">Login</a></li>
+                    <li><a href="/Layouts/registration.html">Registration</a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <legend><b>LOGIN</b></legend>
+                <form>
+                    <div class="block-set">
+                        <p>user Name : </p>
+                        <input type="text" name="username">
+                    </div>
+                    <div class="block-set">
+                        <p>Password : </p>
+                        <input type="password" name="password">
+                    </div>
+                    <input type="checkbox" name="remember" id="remember"> Remember Me
+                    <div class="block-set">
+                        <input type="submit" name="submit_btn">
+                        <span class="space"></span>
+                        <a href="/Layouts/change_password.html">Forgot Password</a>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td><h6>Copyright 2020</h6></td>
+        </tr>
+    </table>
+</body>
+</html>
