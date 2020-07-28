@@ -56,16 +56,16 @@
             <td>
                 <h1>X-Company</h1>
                 <ul>
-                    <li><a href="/Layouts/home.html">Home</a></li>
-                    <li><a href="/Layouts/login.html">Login</a></li>
-                    <li><a href="/Layouts/registration.html">Registration</a></li>
+                    <li><a href="../Layouts/home.html">Home</a></li>
+                    <li><a href="../Layouts/login.html">Login</a></li>
+                    <li><a href="../Layouts/registration.html">Registration</a></li>
                 </ul>
             </td>
         </tr>
         <tr>
             <td>
                 <legend><b>LOGIN</b></legend>
-                <form>
+                <form action="../php/login_check.php" method="POST">
                     <div class="block-set">
                         <p>user Name : </p>
                         <input type="text" name="username">
@@ -78,7 +78,7 @@
                     <div class="block-set">
                         <input type="submit" name="submit_btn">
                         <span class="space"></span>
-                        <a href="/Layouts/change_password.html">Forgot Password</a>
+                        <a href="../Layouts/change_password.html">Forgot Password</a>
                     </div>
                 </form>
             </td>
