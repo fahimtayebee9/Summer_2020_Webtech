@@ -88,7 +88,7 @@
                     <li><a href="../Layouts/loggedin_home.php">DashBoard</a></li>
                     <li><a href="../Layouts/profile.php">View Profile</a></li>
                     <li><a href="../Layouts/edit_profile.php">Edit Profile</a></li>
-                    <li><a href="../Layouts/picture.html">Change Profile Picture</a></li>
+                    <li><a href="../Layouts/picture.php">Change Profile Picture</a></li>
                     <li><a href="../Layouts/change_password.html">Change Password</a></li>
                     <li><a href="../php/logout.php">Logout</a></li>
                 </ul>
