@@ -13,6 +13,8 @@
             $user = explode('|', $data);
             if(trim($user[0]) == $id && trim($user[1]) == $password){
                 $_SESSION['status']  = "Ok";
+                $_SESSION['name'] = trim($user[2]);
+                $_SESSION['id'] = trim($user[0]);
                 if(trim($user[4]) == 'Admin'){
                     header('location: ../layouts/admin_home.php');
                 }
