@@ -23,7 +23,7 @@
             <a href="../layouts/profile.php">Profile</a>
             <a href="../layouts/change_password.php">Change Password</a>
             <a href="../layouts/user_list.php">View Users</a>
-            <a href="../layouts/logout.php">Logout</a>
+            <a href="../php/logout.php">Logout</a>
         </div>
         
     <?php
