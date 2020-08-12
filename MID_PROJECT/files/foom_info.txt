@@ -1,0 +1,6 @@
+FI-3547 | Fried Rice with Curry | Launch | 480
+FI-4861 | Fried Rice with Mutton | Launch | 750 
+FI-2791 | Tandury Chicken | Fast-Food | 380
+FI-597 | Nan Ruty | Dinner | 30
+FI-297 | Tandury Chicken with Nan Ruty | Dinner | 385
+FI-729 | Fried Rice | Dinner | 180
