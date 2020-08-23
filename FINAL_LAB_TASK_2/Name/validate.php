@@ -1,3 +1,9 @@
 <?php
-    echo 00;
+    if(isset($_GET['name'])){
+        $name = $_GET['name'];
+        echo $name;
+    }
+    else{
+        echo "NAME NOT SET";
+    }
 ?>
