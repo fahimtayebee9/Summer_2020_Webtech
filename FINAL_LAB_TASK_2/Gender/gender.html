@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GENDER</title>
+	<script src="script.js" type="text/javascript"></script>
+</head>
+<body>
+	<h1>GENDER Validation</h1>
+	<form name="" action="validate.php" method="" onsubmit="return validation()">
+		<fieldset>
+			<legend>Gender</legend>
+			<table>
+				<tr>
+					<td class="input-box">
+						<input type="radio" name="gender_inout" value="Male" id="male" >  Male 
+						<input type="radio" name="gender_inout" value="Female" id="female" > Female
+						<input type="radio" name="gender_inout" value="Other" id="other"> Other
+					</td>
+					<td><span id="warning"></span></td>
+				</tr>
+				<tr>
+					<td><input type="submit" name="submit" value="submit" ></td>
+					<td></td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+</body>
+</html>
