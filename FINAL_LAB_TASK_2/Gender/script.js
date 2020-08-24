@@ -1,16 +1,20 @@
 function validation(){
 	if(document.getElementById("male").checked){
 		alert(document.getElementById("male").value.toUpperCase());
+		return true;
     }
   	else if(document.getElementById("female").checked){
-    	alert(document.getElementById("female").value.toUpperCase());
+		alert(document.getElementById("female").value.toUpperCase());
+		return true;
     }
     else if(document.getElementById("other").checked){
-    	alert(document.getElementById("other").value.toUpperCase());
+		alert(document.getElementById("other").value.toUpperCase());
+		return true;
     }
     else{
 		alert("No Item Selected");
-    	document.getElementById("warning").innerHTML = "Not selected";
+		document.getElementById("warning").innerHTML = "Not selected";
+		return false;
     }
 }
 
