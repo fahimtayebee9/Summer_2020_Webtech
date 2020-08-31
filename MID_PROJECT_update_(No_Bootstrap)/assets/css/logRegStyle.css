@@ -1,0 +1,189 @@
+body{
+    font-family: 'Poppins',sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: linear-gradient( 109.6deg,  rgba(102,203,149,1) 11.2%, rgba(39,210,175,1) 98.7% );
+    /* opacity: 0.7; */
+    /* overflow: hidden; */
+}
+.main-body{
+    height: 100vh;
+    display: flex;
+}
+.row-height{
+    height: 100vh;
+}
+.form-background{
+    background-color: white;
+    border-radius: 5px;
+    padding: 50px;
+    vertical-align: middle;
+    height: fit-content;
+    width: 25%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+form{
+    margin-top: 20px;
+}
+h1{
+    font-family: 'Poppins',sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+}
+.heading p{
+    text-align: center;
+}
+.btn-custom{
+    width: 50%;
+    background-image: radial-gradient( circle 939px at 94.7% 50%,  rgba(0,178,169,1) 0%, rgba(0,106,101,1) 76.9% );
+    border: none;
+    transition: 0.4s all ease-in-out;
+    font-size: 18px!important;
+    font-weight: 600!important;
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+}
+.btn-custom:hover{
+    background-image: radial-gradient( circle 788px at 0.7% 3.4%,  rgba(164,231,192,1) 0%, rgba(255,255,255,1) 90% );
+    color: rgb(31, 31, 31);
+}
+.img-box{
+    background-image: linear-gradient( 111.1deg,  rgba(0,40,70,1) -4.8%, rgba(255,115,115,1) 82.7%, rgba(255,175,123,1) 97.2% );
+    width: 100%;
+    height: 100%;
+}
+.reg-area{
+    /* padding-top: 25px; */
+    width: 100%;
+}
+.form-control{
+    display: block;
+    width: -webkit-fill-available;
+    height: calc(1.5em + .75rem + 2px);
+    padding: 0 .75rem;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 15px;
+}
+.form-group{
+    margin-bottom: 15px;
+    position: relative;
+}
+/* Progress Bar Style */
+.progress-bar{
+    background-color: rgb(221, 221, 221);
+    width: 400px;
+    height: 20px;
+}
+
+/* REGISTRATION FORM */
+.reg_body{
+    width: 60%!important;
+}
+.inputField_area{
+    display: flex;
+    justify-content: space-between;
+}
+.divider{
+    width: 48%;
+}
+.btn-register{
+    padding: 8px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ced4da;
+    border: none;
+    text-decoration: none;
+    transition: 0.4s all ease-in-out;
+    color: black;
+}
+.btn-register:hover{
+    background-image: radial-gradient( circle 788px at 0.7% 3.4%,  rgba(164,231,192,1) 0%, rgba(255,255,255,1) 90% );
+}
+.title{
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
+}
+input[type="radio"] {
+    background-color: #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 1px black;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    margin-right: 15px;
+    position: relative;
+    width: 20px;
+    -webkit-appearance: none;
+    vertical-align: middle;
+    margin-top: 0;
+}
+input[type="radio"]:after {
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 0 0px 0px #444;
+    content: '';
+    display: block;
+    height: 12px;
+    left: 4px;
+    position: relative;
+    top: 4px;
+    width: 12px;
+}
+input[type="radio"]:checked:after {
+    background-color: cornflowerblue;
+    box-shadow: 0 0 0px 1px cornflowerblue;
+}
+.radio-controller{
+    display: flex;
+}
+.radio-box{
+    margin-right: 20px;
+    display: flex;
+    vertical-align: middle;
+}
+.radio-label{
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.suggest-area{
+    display: flex;
+}
+.suggest-area p{
+    margin: 0;
+}
+.default{
+    padding-right: 10px;
+    font-weight: 500;
+}
+.dob{
+    width: 12%!important;
+}
+.date-controller{
+    display: flex;
+    vertical-align: middle;
+    justify-content: space-between;
+}
+#suggestUsername{
+    font-weight: 500;
+}
+.suggestUsername:hover{
+    color: aqua!important;
+}

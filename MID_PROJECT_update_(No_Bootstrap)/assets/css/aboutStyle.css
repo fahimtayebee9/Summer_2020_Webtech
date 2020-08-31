@@ -1,0 +1,17 @@
+.img-container{
+    width: 80%;
+    margin: auto;
+}
+.about-img{
+    min-height: 520px;
+}
+.about-img::after{
+    display: none;
+}
+.about-content{
+    width: 80%!important;
+    margin: auto!important;
+}
+.about-content h1{
+    text-align: center!important;
+}

@@ -1,0 +1,12 @@
+.row-pad{
+    padding-left: 25px;
+    margin-top: 25px;
+}
+.filter-form{
+    display: flex;
+    justify-content: start;
+}
+.button-area{
+    display: flex;
+    justify-content: space-between;
+}
