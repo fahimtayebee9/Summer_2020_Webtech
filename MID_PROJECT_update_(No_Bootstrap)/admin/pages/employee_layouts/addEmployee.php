@@ -1,8 +1,7 @@
 <?php
     include "../../Php/db/DB_Config.php";
     session_start();
-    if(isset($_SESSION['username'])){
-    $name = "Admin";
+    $name = $_SESSION['username'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -11,130 +10,104 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="../../../assets/js/dashboard_script.js" ></script>
-
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
-    <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
+    <link rel="stylesheet" href="../../../assets/css/employeeList.css">
 
-    <title>Add Employee</title>
+    <title>Add New Employee</title>
+
 </head>
 <body>
-    <section class="left-sidebar">
+    <div class="left-sidebar">
         <div class="dashboard_controller">
-            <div class="fixed-area" >
-                <div class="heading-area">
-                    <img src="../../../assets/images/logo.png" class="logoimg" alt="">
-                </div>
-                <div class="menu-list">
-                    <ul>
-                        <li></i><a class="menu-title" href="admin_home.php">DashBoard</a></li>
-                        <li>
-                            <a class="menu-title" href="../employee_layouts/Employee.php">Employee Details</a>
-                            <ul class="submenu-ul">
-                                <li><a href="../employee_layouts/addEmployee.php">Add Employee</a></li>
-                                <li><a href="../employee_layouts/Delete_Emp.php">Delete Employee</a></li>
-                                <li><a href="../employee_layouts/UpdateEmp.php">Update Employee</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="menu-title" href="../customer_layouts/CustomerDetails.php">Customer Details</a>
-                            <ul>
-                                <li><a href="../customer_layouts/CustomerReservationInfo.php">Customer Reservations</a></li>
-                                <li><a href="../customer_layouts/Update_Customer.php">Update Customer</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="menu-title" href="../food_item_layouts/Food_Menu.php">Food Menu</a>
-                            <ul>
-                                <li><a href="../food_item_layouts/Add_Food_Item.php">Add Food Items</a></li>
-                                <li><a href="../food_item_layouts/Update_Food_Item.php">Update Food Items</a></li>
-                                <li><a href="../food_item_layouts/Delete_Food_Item.php">Delete Food Items</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="menu-title" href="notifications.php">Join Requests</a>
-                        </li>
-                        <li>
-                            <a class="menu-title" href="../../Php/logout.php">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <?php
+                include "../include/left_menu.php";
+            ?>
         </div>
         <div class="main">
             <div class="rmv-pad scrollable-area">
                 <div class="content-area scrollbar title-header-main">
                     <div class="header-row title-header">
                         <div class="textarea">
-                            <h4>DASHBOARD</h4>
-                            <p>All Informations are shown bellow.</p>
+                            <h4>Add New Employee</h4>
+                            <p>Insert Informations To Add New Employee</p>
                         </div>
                         <div class="content-holder">
-                            <div class="search-area">
-                                <form action="" method="POST">
-                                    <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
-                                        <option value="#"></option>
-                                        <option value="Customer">Customer</option>
-                                        <option value="Employee">Employee</option>
-                                        <option value="Food Item">Food Item</option>
-                                    </select>
-                                    <input type="search" name="search_box" id="search_box" class="btn" >
-                                    <input type="submit" value="Search" id="" class="btn_search btn">
-                                </form>
-                            </div>
                             <span class="border-span"></span>
                             <div class="profile-settings dropdown">
                                 <a class="dropbtn" href="#" id="dropMenu" onclick="dropMenuAction()"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php 
                                     if(isset($name)){
                                         echo $name;
-                                    }   
-                                    else{
-                                        $name = "Login";
-                                        echo $name;
                                     }
                                 ?>
                                 </a>
                                 <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
                                     <?php
-                                        if($name =='Login'){
-                                            $settings_1 = 'Register';
-                                            $settings_1_path = 'register.php';
-                                            $settings_2 = 'Go To Home';
-                                            $settings_2_path = '../index.php';
-                                            $settings_3 = '';
-                                            $settings_3_path = '';
-                                        }
-                                        else{
-                                            $settings_1 = 'Profile Details';
-                                            $settings_1_path = 'profile_details.php';
-                                            $settings_2 = 'Change Password';
-                                            $settings_2_path = 'change_password.php';
-                                            $settings_3 = 'Logout';
-                                            $settings_3_path = '../../Php/logout.php';
-                                        }
-                                        
+                                        include "../include/profile_settings.php"
                                     ?>
-                                    <a class="dropdown-item" href="<?php echo $settings_1_path;?>"><?php echo $settings_1;?></a>
-                                    <a class="dropdown-item" href="<?php echo $settings_2_path;?>"><?php echo $settings_2;?></a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="../../Php/logout.php" id="logout">Logout</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="add_form_area">
+                        <h4>Insert Employee Details</h4>
+                        <form action="../Php/add_emp_validation.php" method="POST">
+                            <div class="form-group">
+                                <label for="fname" class="title">Full Name</label>
+                                <input type="text" name="fname" id="fname" class="form_field">
+                                <p id="nameError"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="title">Email</label>
+                                <input type="email" name="email" id="email" class="form_field" required>
+                                <p id="emailError"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob" class="title">Date of Birth</label>
+                                <input type="date" name="dob" id="dob" class="form_field">
+                                <p id="dobError"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="salary" class="title">Salary</label>
+                                <input type="number" name="salary" id="salary" class="form_field">
+                                <p id="salaryError"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="filter" class="title">Job Role : </label>
+                                <select name="position" class="form_field" id="position">
+                                    <option value="#" class="form_field">Select</option>
+                                    <option value="Manager" class="form_field">Manager</option>
+                                    <option value="Chef" class="form_field">Chef</option>
+                                    <option value="Staff" class="form_field">Staff</option>
+                                </select>
+                                <p id="positionError"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="onepass" class="title">One Time Password</label>
+                                <input type="password" name="onePass" id="onepass" class="form_field">
+                                <p id="nameError"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Confirm" name="confirm" class="btn">
+                            </div>
+                            <?php
+                                if(isset($_SESSION['confirmation'])){
+                                    ?>
+                                    <p class="text-success"><?echo $_SESSION['confirmation'];?></p>
+                            <?php
+                                }
+                                else if(isset($_SESSION['roleError'])){
+                                ?>
+                                    <p class="text-danger"><?echo $_SESSION['roleError'];?></p>
+                            <?php
+                                }
+                            ?>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-
-
+    </div>
+    
 </body>
 </html>
-<?php
-    }
-    else{
-        header('location: ../other/login.php');
-    }
-?>

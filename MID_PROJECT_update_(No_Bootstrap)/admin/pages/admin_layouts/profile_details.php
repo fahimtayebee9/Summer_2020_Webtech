@@ -42,47 +42,9 @@
 <body>
     <div class="left-sidebar">
         <div class=" main">
-            <div class="fixed-area" >
-                <div class="menu-bar " id="menu-bar">
-                    <div class="heading-area">
-                        <img src="../../../assets/images/logo.png" class="logoimg" alt="">
-                    </div>
-                    <div class="menu-list">
-                        <ul>
-                            <li></i><a class="menu-title" href="admin_home.php">DashBoard</a></li>
-                            <li>
-                                <a class="menu-title" href="../layouts/Employee.php">Employee Details</a>
-                                <ul class="submenu-ul">
-                                    <li><a href="../layouts/addEmployee.php">Add Employee</a></li>
-                                    <li><a href="../layouts/Delete_Emp.php">Delete Employee</a></li>
-                                    <li><a href="../layouts/UpdateEmp.php">Update Employee</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="menu-title" href="../layouts/CustomerDetails.php">Customer Details</a>
-                                <ul>
-                                    <li><a href="../layouts/CustomerReservationInfo.php">Customer Reservations</a></li>
-                                    <li><a href="../layouts/Update_Customer.php">Update Customer</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="menu-title" href="../layouts/Food_Menu.php">Food Menu</a>
-                                <ul>
-                                    <li><a href="../layouts/Add_Food_Item.php">Add Food Items</a></li>
-                                    <li><a href="../layouts/Update_Food_Item.php">Update Food Items</a></li>
-                                    <li><a href="../layouts/Delete_Food_Item.php">Delete Food Items</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="menu-title" href="../layouts/notifications.php">Join Requests</a>
-                            </li>
-                            <li>
-                                <a class="menu-title" href="../Php/logout.php">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?php
+                include "../include/left_menu.php";
+            ?>
             <div class="scrollable-area">
                 <div class="content-area scrollbar title-header-main">
                     <div class="header-row title-header">
@@ -106,28 +68,8 @@
                                 </a>
                                 <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
                                     <?php
-                                        if($name =='Login'){
-                                            $settings_1 = 'Register';
-                                            $settings_1_path = 'register.php';
-                                            $settings_2 = 'Go To Home';
-                                            $settings_2_path = '../index.php';
-                                            $settings_3 = '';
-                                            $settings_3_path = '';
-                                        }
-                                        else{
-                                            $settings_1 = 'Profile Details';
-                                            $settings_1_path = 'profile_details.php';
-                                            $settings_2 = 'Change Password';
-                                            $settings_2_path = 'change_password.php';
-                                            $settings_3 = 'Logout';
-                                            $settings_3_path = '../../Php/logout.php';
-                                        }
-                                        
+                                        include "../include/profile_settings.php"
                                     ?>
-                                    <a class="dropdown-item" href="profile_details.php">Profile Details</a>
-                                    <a class="dropdown-item" href="change_password.php">Change Password</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="../../Php/logout.php" id="logout">Logout</a>
                                 </div>
                             </div>
                         </div>
