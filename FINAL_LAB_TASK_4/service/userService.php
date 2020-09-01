@@ -76,7 +76,7 @@
 			echo "DB connection error";
 		}
 
-		$sql = "insert into users values('', '{$user['username']}','{$user['password']}', '{$user['email']}', 'admin')";
+		$sql = "insert into users values('','', '{$user['username']}','{$user['email']}', '{$user['password']}', 'admin')";
 		if(mysqli_query($conn, $sql)){
 			return true;
 		}else{
