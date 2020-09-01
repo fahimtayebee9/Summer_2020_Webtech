@@ -20,7 +20,7 @@
 
     <title>Admin Homepage</title>
 </head>
-<body>
+<body onload="get_Profit()">
     <section class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -32,7 +32,7 @@
                 <div class="content-area scrollbar title-header-main">
                     <div class="header-row title-header">
                         <div class="textarea">
-                            <h4>DASHBOARD</h4>
+                            <h4>PROFIT DETAILS</h4>
                             <p>All Informations are shown bellow.</p>
                         </div>
                         <div class="content-holder">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="profit_area">
-                        <div class="filter_profit_area">
+                        <div class="filter_profitArea">
                             <form action="" onsubmit="">
                                 <div class="filter_part">
                                     <label for="year" class="title">Year</label>
@@ -85,6 +85,7 @@
                                 <div class="filter_part">
                                     <label for="month" class="title">Month</label>
                                     <select name="month" id="month" onchange="get_monthlyProfit()">
+                                        <option value="0"></option>
                                         <option value="1">January</option>
                                         <option value="2">February</option>
                                         <option value="3">March</option>
@@ -99,16 +100,10 @@
                                         <option value="12">December</option>
                                     </select>
                                 </div>
-                                <div class="filter_part">
-                                    <label for="day" class="title">Day</label>
-                                    <select name="day" id="day" onchange="get_daylyProfit()">
-                                        <option value="1">2018</option>
-                                        <option value="2">2019</option>
-                                        <option value="3">2020</option>
-                                        <option value="2021">2021</option>
-                                    </select>
-                                </div>
                             </form>
+                        </div>
+                        <div class="profit_table" id="profit_table">
+                            
                         </div>
                     </div>
                 </div>
