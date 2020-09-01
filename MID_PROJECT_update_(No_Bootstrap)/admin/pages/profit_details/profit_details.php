@@ -2,7 +2,7 @@
     include "../../Php/db/DB_Config.php";
     session_start();
     if(isset($_SESSION['username'])){
-    $name = "Admin";
+        $name = $_SESSION['username'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,9 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="../../../assets/js/dashboard_script.js" ></script>
+    <script src="../../../assets/js/profit_filter.js" ></script>
 
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
     <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
+    <link rel="stylesheet" href="../../../assets/css/profitPage_style.css">
 
     <title>Admin Homepage</title>
 </head>
@@ -66,6 +68,47 @@
                                     ?>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="profit_area">
+                        <div class="filter_profit_area">
+                            <form action="" onsubmit="">
+                                <div class="filter_part">
+                                    <label for="year" class="title">Year</label>
+                                    <select name="year" id="year" onchange="get_yearlyProfit()">
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                                <div class="filter_part">
+                                    <label for="month" class="title">Month</label>
+                                    <select name="month" id="month" onchange="get_monthlyProfit()">
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="filter_part">
+                                    <label for="day" class="title">Day</label>
+                                    <select name="day" id="day" onchange="get_daylyProfit()">
+                                        <option value="1">2018</option>
+                                        <option value="2">2019</option>
+                                        <option value="3">2020</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
