@@ -1,0 +1,7 @@
+1 | Bruce | bruce@gmail.com | Male | 04-11-1992 | 90000 | 574 | 20% | Premium
+2 | Bob | bob12@gmail.com | Male | 04-11-1992 | 78000 | 235 | 35% | New Member
+3 |Clark | clark46@gmail.com | Male | 04-11-1992 | 35000 | 179 | 25% | Gold
+4 | John | john79@gmail.com | Male | 04-11-1992 | 49000 | 952 | 10% | New Member
+5 | Micheal | micheal@gmail.com | Male | 04-11-1992 | 51000 | 172 | 15% | Premium
+6 | Jonathan | jonathan31@gmail.com | Male | 04-11-1992 | 63000 | 465 | 45% | Gold
+7 | Kelvin | kelvin94@gmail.com | Male | 04-11-1992 | 84000 | 376 | 30% | New Member

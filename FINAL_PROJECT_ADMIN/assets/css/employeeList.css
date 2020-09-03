@@ -1,0 +1,61 @@
+.row-pad{
+    padding-left: 25px;
+    margin-top: 25px;
+}
+.filter-form{
+    display: flex;
+    justify-content: start;
+}
+.button-area{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ADD EMP PAGE DESIGN */
+.add_form_area{
+    width: 40%;
+    margin: auto;
+    margin-top: 25px;
+}
+.add_form_area h4{
+    font-size: 26px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.title{
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Poppins',sans-serif;
+    display: block;
+    margin-bottom: 10px;
+}
+.form_field{
+    display: block;
+    width: 100%!important;
+    height: calc(1.5em + .75rem + 2px);
+    padding: 0 .75rem;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 15px;
+}
+.btn{
+    padding: 8px 22px!important;
+    background-color: #d6f5d6;
+    border: none!important;
+}
+.btn:hover{
+    transition: 0.4s all ease-in-out;
+    background-color:  #47d147;
+    border: none;
+    box-shadow: 0px 0px 5px 0px  #47d147;
+    color: white;
+}
