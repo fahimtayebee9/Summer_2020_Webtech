@@ -58,4 +58,51 @@
         return $days;
     }
 
+    function update(){
+        $db = dbConnection();
+        $monthly_total = 0;
+        $yearly_total = 0;
+
+        $yr_sql_all = "select * from year_profits";
+        $result_years = mysqli_query($db,$yr_sql_all);
+
+        while($yearRow = mysqli_fetch_assoc($result_years)){
+
+            $yr_id_row = $yearRow['yr_id'];
+            $getMonth_sql = "SELECT * from monthly_profits where yr_id='$yr_id_row'";
+            $result_months = mysqli_query($db,$getMonth_sql);
+
+            while($monthRow = mysqli_fetch_assoc($result_months)){
+
+                $m_id_row = $monthRow['m_id'];
+
+                $daily_sql = "select * from daily_profits where m_id='$m_id_row' and yr_id='$yr_id_row'";
+                $result = mysqli_query($db,$daily_sql);
+                
+                while($row= mysqli_fetch_assoc($result)){
+                    $monthly_total += $row['profit'];
+                }
+
+                $up_monthly = "UPDATE monthly_profit set profit='$monthly_total' where m_id='$m_id_row' and yr_id='$yr_id_row'";
+                $yup_result = mysqli_query($db,$up_monthly);
+
+                $m_sql = "select * from monthly_profits where yr_id = '$yr_id_row'";
+                $res_month = mysqli_query($db,$m_sql);
+
+                while($row_m = mysqli_fetch_assoc($res_month)){
+                    $yearly_total += $row_m['profit'];
+                }
+
+                $up_yr = "UPDATE year_profits set profit = '$yearly_total' where yr_id = '$yr_id_row'";
+                $res_up_yr = mysqli_query($db,$up_yr);
+
+                if($res_up_yr){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+    }    
 ?>

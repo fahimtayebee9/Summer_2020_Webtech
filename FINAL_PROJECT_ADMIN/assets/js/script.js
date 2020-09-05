@@ -457,7 +457,7 @@ function validatePassword(){
             if(this.readyState == 4 && this.status == 200){
                 if(this.responseText != ""){
                     var responseText = this.responseText;
-                    if(responseText == "true"){
+                    if(responseText == "1"){
                         alert('Password Updated successfully!');
                         window.location = "../../pages/admin_layouts/profile_details.php";
                     }
