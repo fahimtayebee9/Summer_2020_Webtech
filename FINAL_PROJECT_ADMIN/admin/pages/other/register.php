@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label class="title">Email Address</label>
-                            <input type="email" name="email" id="email" class="form-control" required="required" placeholder="example@domain.com"  onkeyup="emailRemover()" onblur="emailBlurText()"  value="<?php if(isset($_SESSION['email'])){ echo $_SESSION['email']; }?>">
+                            <input type="email" name="email" id="email" class="form-control" required="required" placeholder="example@domain.com"  onkeyup="emailExist()" onblur="emailBlurText()"  value="<?php if(isset($_SESSION['email'])){ echo $_SESSION['email']; }?>">
                             <p id="emailError"></p>
                             <?php
                                 session_start();

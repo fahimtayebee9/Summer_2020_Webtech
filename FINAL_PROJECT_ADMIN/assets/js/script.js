@@ -116,7 +116,9 @@ function emailValidation(){
 	var errorElement = document.getElementById('emailError');
     // alert(email);
 	// 2. character check a-z, @ and .
-	var val = emailStringCheck(email);
+    var val = emailStringCheck(email);
+    
+    var exist = emailExist();
 	
 	// 1. Empty check
 	if(email == "" || email == null){
@@ -176,6 +178,41 @@ function emailBlurText(){
     }
     else{
         emailValidation();
+    }
+}
+
+function emailExist(){
+    var email = document.getElementById('email').value;
+    if(email == ""){
+        document.getElementById('emailError').innerHTML = "Email Can not be empty";
+    }
+    else{
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '../../Php/emailCheck.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.send('email='+email);
+
+        xhttp.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+                if(this.responseText != ""){
+                    if(this.responseText == "false"){
+                        document.getElementById('emailError').innerHTML = "Email Exists..";
+                        document.getElementById('emailError').style.color = 'red';
+                        valid = false;
+                    }
+                    else{
+                        document.getElementById('emailError').innerHTML = "";
+                        valid = true;
+                    }
+                }else{
+                    document.getElementById('emailError').innerHTML = "";
+                }
+                
+            }	
+            else{
+                document.getElementById('emailError').innerHTML = this.responseText;
+            }
+        }
     }
 }
 
