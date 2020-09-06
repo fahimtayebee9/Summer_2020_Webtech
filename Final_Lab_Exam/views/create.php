@@ -16,18 +16,18 @@
 </head>
 <body>
 
-	<form action="" method="">
+	<form action="" method="" onsubmit="">
 		<fieldset>
 			<legend>Create New Author</legend>
 			<table>
 				<tr>
 					<td>Author Name</td>
-					<td><input type="text" name="name" id="name"></td>
+					<td><input type="text" name="author_name" id="author_name"></td>
 					<td><p id="errorMsgUsername"></p></td>
 				</tr>
 				<tr>
 					<td>Username</td>
-					<td><input type="text" name="username" id="username"></td>
+					<td><input type="text" name="username" id="username" onkeyup="usernameValidate()"></td>
 					<td><p id="errorMsgUsername"></p></td>
 				</tr>
 				<tr>
@@ -37,7 +37,7 @@
 				</tr>
 				<tr>
 					<td>Contact Number</td>
-					<td><input type="text" name="contact" id="contact"></td>
+					<td><input type="text" name="contact_number" id="contact_number"></td>
 					<td><p id="errorMsgUsername"></p></td>
 				</tr>
 				<tr>
@@ -46,6 +46,9 @@
 						<input type="submit" name="create" value="Create" onclick="submitForm()"> 
 						<a href="home.php">Back</a>
 					</td>
+				</tr>
+				<tr>
+					<td><p id="formError"></p></td>
 				</tr>
 			</table>
 		</fieldset>

@@ -29,7 +29,7 @@
 			$users = getAllUser();
 			for ($i=0; $i != count($users); $i++) {  ?>
 		<tr>
-			<td><?=$users[$i]['id']?></td>
+			<td><?=$i?></td>
 			<td><?=$users[$i]['username']?></td>
 			<td><?=$users[$i]['password']?></td>
 			<td><?=$users[$i]['email']?></td>

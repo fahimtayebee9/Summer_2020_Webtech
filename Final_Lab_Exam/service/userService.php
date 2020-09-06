@@ -57,7 +57,7 @@
 			echo "DB connection error";
 		}
 
-		$sql = "select * from users where username='{$user['username']}' and password='{$user['password']}'";
+		$sql = "select * from users_blog where username='{$user['username']}' and password='{$user['password']}'";
 		$result = mysqli_query($conn, $sql);
 		$user = mysqli_fetch_assoc($result);
 
@@ -76,7 +76,7 @@
 			echo "DB connection error";
 		}
 
-		$sql = "insert into users values('','', '{$user['username']}','{$user['email']}', '{$user['password']}', 'admin')";
+		$sql = "insert into authors (author_name,contact_number,username,password) values('{$user['author_name']}','{$user['contact_number']}', '{$user['username']}', '{$user['password']}')";
 		if(mysqli_query($conn, $sql)){
 			return true;
 		}else{

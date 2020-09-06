@@ -3,9 +3,10 @@
 	require_once('../service/userService.php');
 	$username 	= $_POST['username'];
 	$password 	= $_POST['password'];
-	$email 		= $_POST['email'];
+	$contact_number = $_POST['contact_number'];
+	$author_name = $_POST['author_name'];
 
-	if(empty($username) || empty($password) || empty($email)){
+	if(empty($username) || empty($password) || empty($contact_number) || empty($author_name)){
 		header('location: ../views/register.php?error=null_value');
 	}
 	else{
@@ -13,7 +14,8 @@
 		$user = [
 			'username'=> $username,
 			'password'=> $password,
-			'email'=> $email
+			'author_name'=> $author_name,
+			'contact_number'=> $contact_number
 		];
 
 		$status = insert($user);
