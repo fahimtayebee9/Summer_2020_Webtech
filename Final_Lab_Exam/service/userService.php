@@ -21,7 +21,7 @@
 			echo "DB connection error";
 		}
 
-		$sql = "select * from users";
+		$sql = "select * from authors";
 		$result = mysqli_query($conn, $sql);
 		$users = [];
 

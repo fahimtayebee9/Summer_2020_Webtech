@@ -20,7 +20,7 @@ function usernameValidate(){
                         valid = false;
                     }
                     else{
-                        document.getElementById('errorMsgUsername').innerHTML = "Valid";
+                        document.getElementById('errorMsgUsername').innerHTML = "";
                         valid = true;
                     }
                 }else{
@@ -53,9 +53,10 @@ function submitForm(){
                     if(this.responseText == "true"){
                         document.getElementById('formError').innerHTML = "Registration Done";
                         document.getElementById('formError').style.color = 'Green';
+                        window.location = "home.php";
                     }
                     else{ 
-                        document.getElementById('formError').innerHTML = "Not Registered" + this.responseText;
+                        document.getElementById('formError').innerHTML = "Not Registered\n" + this.responseText;
                         document.getElementById('formError').style.color = 'red';
                     }
                 }else{

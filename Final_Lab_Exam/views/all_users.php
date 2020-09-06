@@ -9,7 +9,7 @@
 <head>
 	<title>User List</title>
 </head>
-<body onload="getAllUser()">
+<body>
 
 	<a href="home.php">Back</a> |
 	<a href="../php/logout.php">Logout</a> 
@@ -18,6 +18,7 @@
 
 	<table border="1">
 		<tr>
+			<th>Sl.</th>
 			<th>Author Name</th>
 			<th>Username</th>
 			<th>Password</th>
@@ -29,11 +30,11 @@
 			$users = getAllUser();
 			for ($i=0; $i != count($users); $i++) {  ?>
 		<tr>
-			<td><?=$i?></td>
+			<td><?=$users[$i]['id']?></td>
+			<td><?=$users[$i]['author_name']?></td>
 			<td><?=$users[$i]['username']?></td>
 			<td><?=$users[$i]['password']?></td>
-			<td><?=$users[$i]['email']?></td>
-			<td><?=$users[$i]['type']?></td>
+			<td><?=$users[$i]['contact_number']?></td>
 			<td>
 				<a href="edit.php?id=<?=$users[$i]['id']?>">Edit</a> |
 				<a href="delete.php?id=<?=$users[$i]['id']?>">Delete</a> 
