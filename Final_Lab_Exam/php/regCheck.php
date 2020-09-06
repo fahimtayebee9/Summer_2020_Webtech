@@ -16,6 +16,7 @@
 			'password'=> $password,
 			'author_name'=> $author_name,
 			'contact_number'=> $contact_number,
+			'role'=>"Author"
 		];
 
 		$status = insert($user);

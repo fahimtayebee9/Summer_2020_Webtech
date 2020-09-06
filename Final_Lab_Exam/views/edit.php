@@ -3,7 +3,8 @@
 	require_once('../service/userService.php');
 
 	if (isset($_GET['id'])) {
-		$user = getByID($_GET['id']);	
+		$id=$_GET['id'];
+		$user = getByID($id);	
 	}else{
 		header('location: all_users.php');
 	}
@@ -30,8 +31,12 @@
 					<td><input type="password" name="password" value="<?=$user['password']?>"></td>
 				</tr>
 				<tr>
-					<td>Email</td>
-					<td><input type="text" name="email" value="<?=$user['email']?>"></td>
+					<td>Author Name</td>
+					<td><input type="text" name="author_name" value="<?=$user['author_name']?>" id="author_name"></td>
+				</tr>
+				<tr>
+					<td>Contact Number</td>
+					<td><input type="text" name="contact_number" value="<?=$user['contact_number']?>" id="contact_number"></td>
 				</tr>
 				<tr>
 					<td></td>

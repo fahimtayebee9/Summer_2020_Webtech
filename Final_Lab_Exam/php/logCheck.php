@@ -21,7 +21,12 @@
 
 			if($status){
 				$_SESSION['username'] = $username;
-				header('location: ../views/home.php');
+				if($_SESSION['role'] == 'Admin'){
+					header('location: ../views/home.php');
+				}
+				else{
+					header('location: ../views/author_home.php');
+				}
 			}else{
 				header('location: ../views/login.php?error=invalid_user');
 			}

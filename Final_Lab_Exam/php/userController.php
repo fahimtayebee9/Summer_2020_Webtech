@@ -35,7 +35,8 @@
 
 		$username 	= $_POST['username'];
 		$password 	= $_POST['password'];
-		$email 		= $_POST['email'];
+		$author_name  = $_POST['author_name'];
+		$contact_number = $_POST['contact_number'];
 		$id 		= $_POST['id'];
 
 		if(empty($username) || empty($password) || empty($email)){
@@ -45,7 +46,8 @@
 			$user = [
 				'username'=> $username,
 				'password'=> $password,
-				'email'=> $email,
+				'author_name'=> $author_name,
+				'contact_number'=>$contact_number,
 				'id'=> $id
 			];
 
