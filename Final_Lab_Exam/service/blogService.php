@@ -21,7 +21,7 @@
 		return $users;
     }
     
-    function getId($username){
+    function getId($username){ 
         $conn = dbConnection();
 
 		if(!$conn){
