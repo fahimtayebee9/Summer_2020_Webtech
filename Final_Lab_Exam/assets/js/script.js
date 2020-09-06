@@ -71,6 +71,19 @@ function submitForm(){
     
 }
 
-function login(){
-
+function search(){
+    var name = document.getElementById('a_name').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../php/search_data.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('name='+name);
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                document.getElementById('searchdata').innerHTML = this.responseText;
+            }else{
+                document.getElementById('searchdata').innerHTML = "";
+            }
+        }	
+    }
 }

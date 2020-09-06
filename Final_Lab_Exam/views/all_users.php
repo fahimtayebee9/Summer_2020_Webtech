@@ -7,7 +7,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="../assets/js/script.js"></script>
 	<title>User List</title>
+	<style>
+		.searchj{
+			padding: 25px;
+		}
+	</style>
 </head>
 <body>
 
@@ -15,6 +21,16 @@
 	<a href="../php/logout.php">Logout</a> 
 	
 	<h3>User list</h3>
+
+	<p>Search Author</p>
+	<form action="search_data.php" method="GET">
+		<input type="text" id="a_name" name="name" onkeyup="search()"/> 
+		<input type="submit" id="button" name="search" value="Click" /> 
+	</form>
+
+	<div class="searchj">
+		<div class="searchdata" id="searchdata"></div>
+	</div>
 
 	<table border="1">
 		<tr>
