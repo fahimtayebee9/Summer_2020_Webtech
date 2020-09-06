@@ -84,6 +84,8 @@ function search(){
             }else{
                 document.getElementById('searchdata').innerHTML = "";
             }
+            alert(this.responseText);
         }	
     }
 }
+
