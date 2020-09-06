@@ -9,7 +9,7 @@
 <head>
 	<title>User List</title>
 </head>
-<body>
+<body onload="getAllUser()">
 
 	<a href="home.php">Back</a> |
 	<a href="../php/logout.php">Logout</a> 
@@ -18,12 +18,11 @@
 
 	<table border="1">
 		<tr>
-			<td>ID</td>
-			<td>Username</td>
-			<td>Password</td>
-			<td>Email</td>
-			<td>Type</td>
-			<td>Action</td>
+			<th>Author Name</th>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Contact Number</th>
+			<th>Action</th>
 		</tr>
 
 		<?php  

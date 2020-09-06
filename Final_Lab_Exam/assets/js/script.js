@@ -1,21 +1,24 @@
 var valid = false;
-function emailValidate(){
-    var email = document.getElementById('email').value;
-    if(email == ""){
-        document.getElementById('errorMsg').innerHTML = "Email Can not be empty";
+function usernameValidate(){
+    var username = document.getElementById('username').value;
+    var passwor = document.getElementById('password').value;
+    var author_name = document.getElementById('author_name').value;
+    var contact_number = document.getElementById('contact').vlaue;
+    if(username == ""){
+        document.getElementById('errorMsgUsername').innerHTML = "username Can not be empty";
     }
     else{
         var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '../php/emailCheck.php', true);
+        xhttp.open('POST', '../php/usernameCheck.php', true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhttp.send('email='+email);
+        xhttp.send('username='+username+"&");
 
         xhttp.onreadystatechange = function (){
             if(this.readyState == 4 && this.status == 200){
 
                 if(this.responseText != ""){
                     if(this.responseText == "false"){
-                        document.getElementById('errorMsg').innerHTML = "Email Exists..";
+                        document.getElementById('errorMsg').innerHTML = "username Exists..";
                         document.getElementById('errorMsg').style.color = 'red';
                         valid = false;
                     }
@@ -72,5 +75,5 @@ function submitForm(){
 }
 
 function login(){
-    
+
 }
