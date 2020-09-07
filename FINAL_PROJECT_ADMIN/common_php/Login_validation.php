@@ -1,5 +1,5 @@
 <?php
-    include "db/DB_Config.php";
+    include "../db/DB_Config.php";
     session_start();
     if(isset($_POST['submit'])){
         if(empty($_POST['email']) || empty($_POST['password'])){
@@ -23,7 +23,7 @@
                         $_SESSION['uid'] = $id;
                         setcookie('email', $email, time() + (86400 * 30), "/");
                         setcookie('password', $password, time() + (86400 * 30), "/");
-                        header('location: ../pages/admin_layouts/admin_home.php');
+                        header('location: ../pages/admin/admin_layouts/admin_home.php');
                         break;
                     }
                     else if($role == 'Customer'){
@@ -46,7 +46,7 @@
             
             if($rowCount == 0){
                 $_SESSION['loginError'] = 'Invalid Information...';
-                header('location: ../pages/other/login.php');
+                header('location: ../common_pages/login.php');
             }
         }
     }

@@ -32,7 +32,7 @@
                             <a class="nav-link hover-ani" href="assets/layouts/contactus.php">Contact Us</a>
                         </li>
                         <li class="nav-item btn-align">
-                            <a class="nav-link btn-custom" href="admin/pages/other/login.php">Login</a>
+                            <a class="nav-link btn-custom" href="common_pages/login.php">Login</a>
                         </li>
                     </ul>
                 </div>

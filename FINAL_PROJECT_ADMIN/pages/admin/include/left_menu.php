@@ -35,7 +35,7 @@
                 <a class="menu-title" href="../admin_layouts/notifications.php">Join Requests</a>
             </li>
             <li>
-                <a class="menu-title" href="../../Php/logout.php">Logout</a>
+                <a class="menu-title" href="../../../common_php/logout.php">Logout</a>
             </li>
         </ul>
     </div>

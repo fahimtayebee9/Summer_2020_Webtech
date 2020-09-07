@@ -1,5 +1,5 @@
 <?php
-    include "../../Php/db/DB_Config.php";
+    include "../../../db/DB_Config.php";
     session_start();
     if(isset($_SESSION['username'])){
         $name = $_SESSION['username'];
