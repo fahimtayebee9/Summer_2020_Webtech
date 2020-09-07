@@ -17,10 +17,10 @@
                 <div class="navbar-menulist" id="navbarMenuList">
                     <ul class="navbar-list">
                         <li class="nav-item">
-                            <a class="nav-link hover-ani" href="new_index.php">Home</a>
+                            <a class="nav-link hover-ani" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-ani" href="assets/layouts/about.html">About</a>
+                            <a class="nav-link hover-ani" href="assets/layouts/about.php">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hover-ani" href="assets/layouts/packages.php">Packages</a>
@@ -29,7 +29,7 @@
                             <a class="nav-link hover-ani" href="assets/layouts/bookrooms.php">Book Rooms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-ani" href="assets/layouts/contactus.html">Contact Us</a>
+                            <a class="nav-link hover-ani" href="assets/layouts/contactus.php">Contact Us</a>
                         </li>
                         <li class="nav-item btn-align">
                             <a class="nav-link btn-custom" href="admin/pages/other/login.php">Login</a>
@@ -38,7 +38,7 @@
                 </div>
             </nav>
         </div>
-        <div class="hg align-items-center">
+        <div class="hg">
             <div class="banner-content">
                 <h1>Hotel Management System</h1>
                 <p>The special charm and the cosy mood of Hotel will make you feel as a true fiorentine in Florence.</p>
