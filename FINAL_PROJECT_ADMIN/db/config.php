@@ -3,7 +3,7 @@
 	$host	= "localhost";
 	$dbuser = "root";
 	$dbpass = "";
-	$dbname	= "webtech";
+	$dbname	= "hms_project";
 
 	function dbConnection(){
 		global $host;

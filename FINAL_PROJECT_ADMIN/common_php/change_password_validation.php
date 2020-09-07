@@ -1,19 +1,25 @@
 <?php
-    include "../../Php/services/admin_service.php";
+    include "../services/admin/user_Service.php";
     session_start();
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $id = $_SESSION['uid'];
-    if($password == $confirm_password){
-        $update = changePassword($password,$id);
-        if($update){
-            echo $update;
+    if(!empty($password) && !empty($confirm_password)){
+        if($password == $confirm_password){
+            $update = changePassword($password,$id);
+            if($update){
+                echo $update;
+            }
+            else{
+                echo $update;
+            }
         }
         else{
-            echo $update;
+            echo "false";
         }
     }
     else{
-        echo "false".mysqli_error($db);
+        echo "false";
     }
+    
 ?>

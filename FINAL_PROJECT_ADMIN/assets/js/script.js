@@ -486,9 +486,10 @@ function validatePassword(){
         var confirmPass = document.getElementById('confirm_password').value;
         var uid =   document.getElementById('uid').value;
         var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '../../Php/admin_validations/change_password_validation.php', true);
+        xhttp.open('POST', '../common_php/change_password_validation.php', true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhttp.send("id"+uid+"&password="+password+"&confirm_password="+confirmPass);
+        alert("id="+uid+"\n&password="+password+"\n&confirm_password="+confirmPass);
         
         xhttp.onreadystatechange = function (){
             if(this.readyState == 4 && this.status == 200){
@@ -496,17 +497,17 @@ function validatePassword(){
                     var responseText = this.responseText;
                     if(responseText == "1"){
                         alert('Password Updated successfully!');
-                        window.location = "../../pages/admin_layouts/profile_details.php";
+                        window.location = "../common_pages/profile_details.php";
                     }
                     else{
-                        alert('Password not Updated!'+this.responseText);
-                        window.location = "../../pages/admin_layouts/profile_details.php";
+                        alert('Password not Updated!\n'+this.responseText);
+                        window.location = "../common_pages/profile_details.php";
                     }
                 }
                 else{
                     alert('Password not updated!\n'+this.responseText);
                 }
-            }	
+            }
         }
     }
 }

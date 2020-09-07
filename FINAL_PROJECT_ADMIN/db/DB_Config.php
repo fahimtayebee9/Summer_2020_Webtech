@@ -1,5 +1,5 @@
 <?php
-	$db = mysqli_connect("localhost", "root", "", "webtech");
+	$db = mysqli_connect("localhost", "root", "", "hms_project");
 	if ( $db ){
 		// echo "Database Connected Successfully.";
 	}

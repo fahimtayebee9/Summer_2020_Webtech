@@ -14,9 +14,9 @@
             while( $row = mysqli_fetch_assoc($alluser) ){
                 $id       = $row['id'];
                 $email_db    = $row['email'];
-                $username_db   = $row['username'];
+                $username_db   = $row['name'];
                 $password_db  = $row['password'];
-                $role = $row['role'];
+                $role = $row['userType'];
                 if(($email == $email_db) && ($password == $password_db)){
                     if($role == 'Admin'){
                         $_SESSION['username'] = $username_db;

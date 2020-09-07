@@ -210,6 +210,6 @@
 <?php
     }
     else{
-        header('location: ../other/login.php');
+        header('location: ../../../common_pages/login.php');
     }
 ?>

@@ -1,0 +1,25 @@
+@media(max-width: 1370px){
+    .fixed-area{
+        width: 28%;
+    }
+    .menu-list ul li .menu-title {
+        font-size: 10px;
+        padding: 8px 10px;
+    }
+    .menu-list ul li .submenu-ul li a{
+        font-size: 10px;
+    }
+    .menu-list ul li .submenu-ul{
+        padding-left: 5px;
+    }
+    .menu-list ul{
+        padding-left: 5px;
+    }
+    .menu-list ul li {
+        padding: 0px;
+        margin: 10px 0px;
+    }
+    .menu-list ul li a {
+        padding: 8px 10px;
+    }
+}
