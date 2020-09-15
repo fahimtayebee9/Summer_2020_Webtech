@@ -1,3 +1,6 @@
+body{
+    background-color: #fbfbfb!important;
+}
 .row-pad{
     padding-left: 25px;
     margin-top: 25px;
@@ -10,12 +13,21 @@
     display: flex;
     justify-content: space-between;
 }
+.filter_area form{
+    width: 100%;
+    justify-content: space-between;
+}
 
 /* ADD EMP PAGE DESIGN */
 .add_form_area{
     width: 40%;
     margin: auto;
     margin-top: 25px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0px 0px 6px 0px #e2e2e2;
+    margin-bottom: 25px;
 }
 .add_form_area h4{
     font-size: 26px;
@@ -24,6 +36,13 @@
     margin: 0;
     text-align: center;
     margin-bottom: 30px;
+}
+.field_areaAdd{
+    width: 75%;
+}
+.img_area{
+    width: 25%;
+    height: 100%;
 }
 .title{
     font-size: 18px;
@@ -34,7 +53,7 @@
 }
 .form_field{
     display: block;
-    width: 100%!important;
+    width: 100%;
     height: calc(1.5em + .75rem + 2px);
     padding: 0 .75rem;
     font-size: 18px;
@@ -58,4 +77,158 @@
     border: none;
     box-shadow: 0px 0px 5px 0px  #47d147;
     color: white;
+}
+.btn-success{
+    font-size: 18px!important;
+    font-weight: 600!important;
+    font-family: 'Poppins',sans-serif;
+    text-decoration: none;
+    background-color: #1ac051;
+    color: white!important;
+    margin-right: 15px;
+}
+.btn-success:hover{
+    background-color: #159741;
+}
+.align_btn{
+    text-align: center!important;
+}
+.searchBox{
+    background-color: transparent!important;
+    padding: 8px 22px!important;
+    border: 0.5px solid rgb(83, 83, 83)!important;
+    font-size: 18px;
+}
+.searchBox:hover{
+    background-color: transparent!important;
+    box-shadow: none;
+}
+
+.search-area {
+    width: 60%!important;
+}
+
+.content_area{
+    margin-top: 35px;
+    width: 98%;
+    box-shadow: 0px 0px 6px 0px #00000057;
+    background-color: white!important;
+    padding: 14px;
+    margin-left: 8px;
+    margin-bottom: 12px;
+}
+
+.img_pic{
+    width: 60px!important;
+    height: 60px!important;
+    border-radius: 50%!important;
+}
+
+.content_area h4{
+    font-size: 28px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+.content_area a{
+    text-decoration: none;
+}
+.btn-info{
+    background-color: rgb(18, 135, 245);
+    color: white;
+    margin-right: 10px;
+}
+.btn-info:hover{
+    background-color: #0044c3;
+}
+.btn-danger{
+    background-color: rgb(255, 37, 37);
+    color: white;
+}
+.btn-danger:hover{
+    background-color: rgb(200, 0, 0);
+}
+
+/* OVERRIDE ADMINHOME CSS */
+.textarea{
+    text-align: center!important;
+}
+.report {
+    border-radius: 14px;
+    box-shadow: 0px 0px 6px 0px #00000057;
+    background-color: white!important;
+    margin-left: 8px;
+}
+
+.form-group{
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title{
+    margin: 0!important;
+    padding-right: 15px;
+}
+
+.tableData {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* UPDATE EMP FORM */
+.contentHolder_sub{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+.form_areaHolder{
+    width: 54%;
+    padding: 25px;
+}
+.profileImage_holder{
+    width: 35%;
+}
+.profileImage_holder h5{
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 80px!important;
+    border-bottom: 1px dashed rgb(63, 63, 63);
+}
+.ftp{
+    width: -webkit-fill-available!important;
+}
+.contentHolder h5{
+    text-align: center;
+    font-size: 28px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+#userImg{
+    width: 100%;
+    text-align: center;
+}
+.save_btn{
+    text-align: center;
+    background-color: #3c7ef8;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+.save_btn:hover{
+    background-color: #206af3;
+}
+
+.btn-reset{
+    margin-left: 15px;
+    background-color: #00d293;
+    color: white;
+}
+.btn-reset:hover{
+    background-color: #01a070;
 }

@@ -8,6 +8,7 @@ include "../db/DB_Config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../assets/css/logRegStyle.css">
+    
     <title>Hotel Management System Portal</title>
 </head>
 <body>

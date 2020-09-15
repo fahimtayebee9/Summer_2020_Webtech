@@ -1,7 +1,8 @@
 <?php
-    include "../../Php/db/DB_Config.php";
+    include "../../../db/DB_Config.php";
     session_start();
-    $name = $_SESSION['username'];
+    if(isset($_SESSION['username'])){
+        $name = $_SESSION['username'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,6 +13,8 @@
 
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
     <link rel="stylesheet" href="../../../assets/css/employeeList.css">
+
+    <script src="../../../assets/js/admin/employee_script.js" ></script>
 
     <title>Add New Employee</title>
 
@@ -51,30 +54,30 @@
                     </div>
                     <div class="add_form_area">
                         <h4>Insert Employee Details</h4>
-                        <form action="../Php/add_emp_validation.php" method="POST">
-                            <div class="form-group">
+                        <form>
+                            <div class="form_update">
                                 <label for="fname" class="title">Full Name</label>
-                                <input type="text" name="fname" id="fname" class="form_field">
+                                <input type="text" name="fname" id="fname" class="form_field ftp" onkeyup="validateName()">
                                 <p id="nameError"></p>
                             </div>
-                            <div class="form-group">
+                            <div class="form_update">
                                 <label for="email" class="title">Email</label>
-                                <input type="email" name="email" id="email" class="form_field" required>
+                                <input type="email" name="email" id="email" class="form_field ftp" onkeyup="validateEmail()" onblur="emailBlurText()">
                                 <p id="emailError"></p>
                             </div>
-                            <div class="form-group">
+                            <div class="form_update">
                                 <label for="dob" class="title">Date of Birth</label>
-                                <input type="date" name="dob" id="dob" class="form_field">
+                                <input type="date" name="dob" id="dob" class="form_field ftp" onchange="validateDate()">
                                 <p id="dobError"></p>
                             </div>
-                            <div class="form-group">
+                            <div class="form_update">
                                 <label for="salary" class="title">Salary</label>
-                                <input type="number" name="salary" id="salary" class="form_field">
+                                <input type="text" name="salary" id="salary" class="form_field ftp" onkeyup="validateEmail()">
                                 <p id="salaryError"></p>
                             </div>
-                            <div class="form-group">
+                            <div class="form_update">
                                 <label for="filter" class="title">Job Role : </label>
-                                <select name="position" class="form_field" id="position">
+                                <select name="position" class="form_field ftp" id="position" onchange="validateRole()">
                                     <option value="#" class="form_field">Select</option>
                                     <option value="Manager" class="form_field">Manager</option>
                                     <option value="Chef" class="form_field">Chef</option>
@@ -82,18 +85,21 @@
                                 </select>
                                 <p id="positionError"></p>
                             </div>
-                            <div class="form-group">
+                            <div class="form_update">
                                 <label for="onepass" class="title">One Time Password</label>
-                                <input type="password" name="onePass" id="onepass" class="form_field">
+                                <div class="password_area">
+                                    <input type="password" name="onePass" id="onepass" class="form_field ftp" onkeyup="validatePassword()">
+                                    <button type="button" onclick="setOneTimePass()" id="onetimepass">Generate Password</button>
+                                </div>
                                 <p id="nameError"></p>
                             </div>
-                            <div class="form-group">
-                                <input type="submit" value="Confirm" name="confirm" class="btn">
+                            <div class="form_update align_btn">
+                                <input type="submit" value="Confirm" name="confirm" class="btn btn-success" onclick="addEmployee()">
                             </div>
                             <?php
                                 if(isset($_SESSION['confirmation'])){
                                     ?>
-                                    <p class="text-success"><?echo $_SESSION['confirmation'];?></p>
+                                    <p><?echo $_SESSION['confirmation'];?></p>
                             <?php
                                 }
                                 else if(isset($_SESSION['roleError'])){
@@ -111,3 +117,10 @@
     
 </body>
 </html>
+
+<?php
+    }
+    else{
+        header('location: ../../../common_pages/login.php');
+    }
+?>

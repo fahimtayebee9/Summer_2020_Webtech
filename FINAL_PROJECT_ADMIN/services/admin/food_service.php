@@ -1,5 +1,5 @@
 <?php
-    require_once("../db/config.php");
+    require_once("../../../db/config.php");
     session_start();
 
     function insert_food($item){
@@ -63,5 +63,28 @@
                 echo $row;
             }
         }
+    }
+
+    function getFoodMenuList(){
+        $db = dbConnection();
+        $sql = "select * from food_menu";
+        $result = mysqli_query($db,$sql);
+
+        $menu_items = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($menu_items, $row);
+        }
+        
+        return $menu_items;
+    }
+    
+
+    function count_item(){
+        $db = dbConnection();
+        $sql = "select * from food_menu";
+        $result = mysqli_query($db,$sql);
+
+        echo mysqli_num_rows($result);
     }
 ?>

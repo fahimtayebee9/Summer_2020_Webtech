@@ -1,5 +1,5 @@
 <?php
-    include "../services/admin/user_Service.php";
+    include "../services/common/user_Service.php";
     session_start();
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];

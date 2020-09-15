@@ -18,7 +18,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="../assets/js/script.js" type="text/javaScript"></script>
+    <script src="../assets/js/admin/script.js" type="text/javaScript"></script>
 
     <link rel="stylesheet" href="../assets/css/profileDetails.css">
     <link rel="stylesheet" href="../assets/css/adminHome.css">
@@ -100,7 +100,7 @@
                                     <a class="dropdown-item" href="profile_details.php">Profile Details</a>
                                     <a class="dropdown-item" href="change_password.php">Change Password</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="../../../common_php/logout.php" id="logout">Logout</a>
+                                    <a class="dropdown-item" href="../common_php/logout.php" id="logout">Logout</a>
                                 </div>
                             </div>
                     </div>

@@ -1,7 +1,6 @@
-@import "font-awesome-sprockets";
-@import "../css/font-awesome.scss";
+
 body{
-    background-color: #ffffff!important;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -20,7 +19,11 @@ body{
 }
 .dropdown {
     position: relative;
+    width: 20%;
     display: inline-block;
+    /* float: right; */
+    justify-content: end;
+    align-items: end;
 }
 .dropdown-content {
     display: none;
@@ -81,13 +84,26 @@ body{
 .content-holder{
     display: flex;
     align-items: center;
+    width: 72%;
+    float: right;
+    justify-content: end;
+    justify-content: flex-end;
 }
 .search-area{
+    width: 55%;
+}
+.form_search{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+.search{
+    display: block;
 }
 .search-area p{
     display: inline;
+    font-weight: 600;
+    margin-right: 20px;
 }
 .border-span{
     width: 2px;
@@ -199,6 +215,7 @@ body{
     font-weight: 600;
     color: white;
 }
+
 .menu-list ul li a:hover{
     color: #00e6b8;
     list-style: disc;
@@ -322,4 +339,34 @@ body{
     background-color: #498f61;
     color: white;
     transition: 0.4s all ease-in-out;
+}
+
+.search_result{
+    display: none;
+    height: auto;
+    position: absolute;
+    z-index: 999;
+    /* border: 1px solid black; */
+    /* padding: 15px 0px; */
+    background-color: rgb(245 ,250 ,255);
+    box-shadow: 0px 2px 2px 0px #00000082;
+}
+#search_box{
+    width: auto;
+}
+.search_data{
+    padding: 15px 10px;
+    margin: 0px;
+    margin-right: 0px!important;
+    font-size: 18px;
+    font-family: 'Poppins',sans-serif;
+    display: block!important;
+    cursor: pointer;
+}
+.search_data:hover{
+    background-color: #42495a;
+    color: white;
+}
+.search_data:active{
+    background-color: #212738;
 }

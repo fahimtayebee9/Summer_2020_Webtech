@@ -1,70 +1,117 @@
 <?php
-    require_once('../db/config.php');
-    function search_user($email){
+    require_once('../../../db/config.php');
+    function getEmpCount($type1,$type2,$type3){
         $conn = dbConnection();
 
         if(!$conn){
             echo "DB connection error";
         }
 
-        $sql = "select * from users where email='$email'";
+        $sql = "select * from users where userType like '$type1' or userType like '$type3' or userType like '$type2'";
         $result = mysqli_query($conn, $sql);
 
         if(mysqli_num_rows($result) == 0){
-            return true;
+            return 0;
         }
         else{
-            return false;
+            return mysqli_num_rows($result);
         }
     }
 
-    function update_profile($user){
-        $db = dbConnection();
-        $name = $user['name'];
-        $email = $user['email'];
-        $password = $user['password'];
-        $username = $user['username'];
-        $role = $user['role'];
-        $uid = $user['userId']; 
-        $id = $user['id'];
-        $dob = $user['dob'];
-        $gender = $user['gender'];
-        $balance = $user['balance'];
-        $profile_picture = $user['profile_picture'];
+    function getCustomerCount($type){
+        $conn = dbConnection();
 
-        $sql_user = "UPDATE users set name='$name', email='$email', username='$username' ,password='$password', role='$role' where id = '$uid'";
-        $res_user = mysqli_query($db,$sql_user);
-        
-        $sql_admin = "UPDATE admininfo set name = '$name', dob='$dob', gender='$gender', balance ='$balance', profile_picture='$profile_picture' where id = '$id'";
-        $res_admin = mysqli_query($db,$sql_admin);
+        if(!$conn){
+            echo "DB connection error";
+        }
 
-        if($res_user && $res_admin){
-            return true;
+        $sql = "select * from users where userType like '$type'";
+        $result = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($result) == 0){
+            return 0;
         }
         else{
-            return false; 
+            return mysqli_num_rows($result);
         }
-        
     }
 
-    function changePassword($password,$uid){
-        $db = dbConnection();
+    function getEmployeeList(){
+        $conn = dbConnection();
+
+        if(!$conn){
+            echo "DB connection error";
+        }
+
+        $sql = "select * from users where userType like 'Employee'";
+        $result = mysqli_query($conn, $sql);
+
+        $users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
+        }
         
-        $sql_user = "UPDATE users set password='$password' where id = '$uid'";
-        $res_user = mysqli_query($db,$sql_user);
+        return $users;
+    }
 
-        if($res_user){
-            return true;
+    function getCustomerList(){
+        $conn = dbConnection();
+
+        if(!$conn){
+            echo "DB connection error";
         }
-        else{
 
-            ?>
-            <script>
-                alert("<?php echo mysqli_error($db)?>");
+        $sql = "select * from users where userType like 'Customer'";
+        $result = mysqli_query($conn, $sql);
 
-            </script>
-            <?php
-            return false; 
+        $users = [];
+
+		while($row = mysqli_fetch_assoc($result)){
+			array_push($users, $row);
         }
+        
+        return $users;
+    }
+
+    function search_user($value, $type){
+        $conn = dbConnection();
+        if(!$conn){
+            echo "DB connection error";
+        }
+
+        $sqlEmp = "select * from users where name like '%$value%' and userType='$type'";
+        $resultEmp = mysqli_query($conn,$sqlEmp);
+
+        $userEmp = [];
+
+		while($row = mysqli_fetch_assoc($resultEmp)){
+			array_push($userEmp, $row);
+        }
+        
+        return $userEmp;
+    }
+
+    function get_userData($value){
+        $conn = dbConnection();
+        if(!$conn){
+            echo "DB connection error";
+        }
+
+        $sql = "select * from users where id='$value'";
+        $result = mysqli_query($conn,$sql);
+
+        $user = (object) array();
+
+		while($row = mysqli_fetch_assoc($result)){
+            $user->name              = $row['name'];
+            $user->email             = $row['email'];
+            $user->phone             = $row['phone'];
+            $user->dateOfBirth       = $row['dateOfBirth'];
+            $user->profile_picture   = $row['profile_picture'];
+            $user->userType          = $row['userType'];
+        }
+        
+        return $user;
     }
 ?>
