@@ -3,7 +3,7 @@
     require_once('../../../services/admin/user_service.php');
 
     if(isset($_POST['userTypeEmp'])){
-        $count = getEmpCount($_POST['userTypeEmp'],$_POST['userTypeEmp2'],$_POST['userTypeEmp3']);
+        $count = getEmpCount($_POST['userTypeEmp']);
         if($count != "" || $count != null || $count != 0){
             echo $count;
         }
@@ -52,9 +52,10 @@
         $length = sizeof($empList);
         $countEmp = 0; 
         while($countEmp < $length){
+            $sl = $countEmp+1;
             $data .= "<tr>".  
                             "<td>". 
-                                "<p>".$empList[$countEmp]['id']."</p>".  
+                                "<p>SL#$sl</p>".
                             "</td>".
                             "<td>". 
                                 "<p>".$empList[$countEmp]['name']."</p>".
@@ -66,7 +67,7 @@
                                 "<p>".$empList[$countEmp]['userType']."</p>".  
                             "</td>".
                     "<tr>";
-                if($countEmp == 4 && $pageName == "Admin Home"){
+                if($countEmp === 3 && $pageName == "Admin Home"){
                     break;
                 }
             $countEmp++;
@@ -79,9 +80,10 @@
         $length = sizeof($cusList);
         $countCus = 0; 
         while($countCus < $length){
+            $sl = $countCus+1;
             $data .= "<tr>".  
                             "<td>". 
-                                "<p>".$cusList[$countCus]['id']."</p>".  
+                                "<p>SL#$sl</p>".  
                             "</td>".
                             "<td>". 
                                 "<p>".$cusList[$countCus]['name']."</p>".

@@ -4,6 +4,26 @@
     global $countCheff;
 
     require_once('../../../services/admin/employee_service.php');
+    require_once('../../../services/admin/admin_service.php');
+
+    if(isset($_POST['empData_add'])){
+        $empDataAdd = $_POST['empData_add'];
+        $empDataAdd = (object) json_decode( $empDataAdd, true);
+        $statusValid = validateData($empDataAdd);
+
+        if($statusValid){
+            $statusAdd = insertEmp($empDataAdd);
+            if($statusAdd){
+                echo 1;
+            }
+            else{
+                echo 0;
+            }
+        }
+        else{
+            echo "Invalid Data...";
+        }
+    }
     if(isset($_POST['filterType'])){
         $filterType = $_POST['filterType'];
 
@@ -82,21 +102,48 @@
         }
 
     }
-    if(isset($_POST['empData_add'])){
-        $empDataAdd = $_POST['empData_add'];
-        $empDataAdd = (object) json_decode( $empDataAdd, true);
-        $statusValid = validateData($empDataAdd);
-
-        if($statusValid){
-            $statusAdd = insertEmp($empDataAdd);
-            if($statusAdd){
-                echo 1;
-            }
+    if(isset($_POST['paySalary'])){
+        $employees = get_Employees();
+        $adminId = $_POST['adminId'];
+        $empCount = sizeof($employees);
+        $totalSalary = 0;
+        foreach($employees as $empSal){
+            $totalSalary = $empSal['salary'] + $empSal['bonus'] + $totalSalary;
+        }
+        $adminInfo = getData($adminId);
+        if(date("d") != "15"){
+            $str = "Can not pay salary today. Pay Salary on 7th Day of every Month.";
+            echo $str;
         }
         else{
-            echo $statusAdd;
+            if($adminInfo[0]['balance'] < $totalSalary ){
+                $str = "Can not pay salary today. Your Balance Is Low.";
+                echo $str;
+            }
+            else{
+                $newBalance = $adminInfo[0]['balance'] - $totalSalary;
+                $adminInfo[0]['balance'] = $newBalance;
+                $empUpdateCount = 0;
+                foreach($employees as $emp){
+                    $emp['balance'] = $emp['salary'] + $emp['balance'] + $emp['bonus'];
+                    $empObj = json_encode($emp);
+                    $updateEmp = updateEmp($empObj);
+                    if($updateEmp){
+                        $empUpdateCount+=1;
+                    }
+                }
+                // echo $empCount." | ".$empUpdateCount;
+                $statusUpdate = updateAdmin($adminInfo[0]);
+                if($statusUpdate){
+                    echo 1;
+                }
+                else{
+                    echo "All Employee Salary Not Paid.";
+                }
+            }
         }
     }
+    
 
     function printData($employees){
         $printDoc = "";
@@ -123,32 +170,53 @@
 
     function validateData($empObject){
         $positions = array("Manager","Staff","Chef");
-        $length = sizeof($empObject);
+        $length = sizeof((array)$empObject);
         $countValids = 0;
         if(!empty($empObject->name) && !empty($empObject->email) && !empty($empObject->password) && !empty($empObject->salary) && !empty($empObject->role) && !empty($empObject->date) ){
             
             if(str_word_count($empObject->name) >= 2){
-                $countValids++;
+                $countValids+=1;
             }
-            if(($empObject->password).length >= 8){
-                $countValids++;
+            if(checkEmail($empObject->email)){
+                $countValids+=1;
             }
-            if($empObject->salary > 0){
-                $countValids++;
+            if(strlen($empObject->password) >= 8){
+                $countValids+=1;
             }
-            if(in_array($positions,$empObject->role)){
-                $countValids++;
+            if($empObject->salary >= 0){
+                $countValids+=1;
+            }
+            if(in_array($empObject->role,$positions)){
+                $countValids+=1;
             }
             if($empObject->date < "2000-01-01"){
-                $countValids++;
+                $countValids+=1;
             }
         }
 
-        if($countValids == $length || $countValids == ($length-1)){
-            return true;
+        if($countValids == $length){
+            return 1;
         }
         else{
-            return false;
+            return 0;
         }
+    }
+
+    // Email Validation
+    function checkEmail($email){
+        $emailCode = 0;
+        $validEmailCode = false;
+        if(isset($email)){
+            $email_array = str_split($email);
+            foreach($email_array as $email_char){
+                if($email_char >= 'a' || $email_char <= 'z' || $email_char == '@' || $email_char == '.'){
+                    $emailCode++;
+                }
+            }
+            if($emailCode == strlen($email)){
+                $validEmailCode = true;
+            }
+        }
+        return $validEmailCode;
     }
 ?>

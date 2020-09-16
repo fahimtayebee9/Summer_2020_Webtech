@@ -3,6 +3,7 @@
     session_start();
     if(isset($_SESSION['username'])){
         $name = $_SESSION['username'];
+        $adminId = $_SESSION['uid'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -109,7 +110,7 @@
                                 </div>
                                 <div class="form-group">
                                     <a href="addEmployee.php" class="btn btn-success">Add New Employee</a>
-                                    <button class="btn btn-info" onclick="paySalary()">Pay All Employee's Salary</button>
+                                    <button class="btn btn-info" onclick="paySalary(<?=$adminId;?>)">Pay All Employee's Salary</button>
                                 </div>
                             </form>
                         </div>

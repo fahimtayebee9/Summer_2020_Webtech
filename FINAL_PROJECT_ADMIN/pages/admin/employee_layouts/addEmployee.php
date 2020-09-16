@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
     <link rel="stylesheet" href="../../../assets/css/employeeList.css">
 
-    <script src="../../../assets/js/admin/employee_script.js" ></script>
+    <script src="../../../assets/js/admin/employee_script.js" type="text/javaScript"></script>
 
     <title>Add New Employee</title>
 
@@ -57,13 +57,20 @@
                         <form>
                             <div class="form_update">
                                 <label for="fname" class="title">Full Name</label>
-                                <input type="text" name="fname" id="fname" class="form_field ftp" onkeyup="validateName()">
-                                <p id="nameError"></p>
+                                <input type="text" name="fname" id="name" class="form_field ftp" >
                             </div>
                             <div class="form_update">
-                                <label for="email" class="title">Email</label>
-                                <input type="email" name="email" id="email" class="form_field ftp" onkeyup="validateEmail()" onblur="emailBlurText()">
-                                <p id="emailError"></p>
+                                <label for="email"  class="title">Email</label>
+                                <input type="email" name="email" id="email" class="form_field ftp" >
+                            </div>
+                            <div class="form_update">
+                                <label for="role" class="title">Role</label>
+                                <select name="role" id="position" class="filter_select form_field searchBox ftp">
+                                    <option value="#">Select</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Chef">Chef</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
                             </div>
                             <div class="form_update">
                                 <label for="dob" class="title">Date of Birth</label>
@@ -72,18 +79,7 @@
                             </div>
                             <div class="form_update">
                                 <label for="salary" class="title">Salary</label>
-                                <input type="text" name="salary" id="salary" class="form_field ftp" onkeyup="validateEmail()">
-                                <p id="salaryError"></p>
-                            </div>
-                            <div class="form_update">
-                                <label for="filter" class="title">Job Role : </label>
-                                <select name="position" class="form_field ftp" id="position" onchange="validateRole()">
-                                    <option value="#" class="form_field">Select</option>
-                                    <option value="Manager" class="form_field">Manager</option>
-                                    <option value="Chef" class="form_field">Chef</option>
-                                    <option value="Staff" class="form_field">Staff</option>
-                                </select>
-                                <p id="positionError"></p>
+                                <input type="text" name="salary" id="salary" class="form_field ftp" onkeyup="validateSalary()"> 
                             </div>
                             <div class="form_update">
                                 <label for="onepass" class="title">One Time Password</label>
@@ -93,21 +89,10 @@
                                 </div>
                                 <p id="nameError"></p>
                             </div>
-                            <div class="form_update align_btn">
-                                <input type="submit" value="Confirm" name="confirm" class="btn btn-success" onclick="addEmployee()">
+                            <div class="form_update">
+                                <input type="hidden" name="id" id="id" value="">
+                                <input type="submit" value="Save Changes" name="confirm" class="btn save_btn" onclick="addNewEmp()">
                             </div>
-                            <?php
-                                if(isset($_SESSION['confirmation'])){
-                                    ?>
-                                    <p><?echo $_SESSION['confirmation'];?></p>
-                            <?php
-                                }
-                                else if(isset($_SESSION['roleError'])){
-                                ?>
-                                    <p class="text-danger"><?echo $_SESSION['roleError'];?></p>
-                            <?php
-                                }
-                            ?>
                         </form>
                     </div>
                 </div>

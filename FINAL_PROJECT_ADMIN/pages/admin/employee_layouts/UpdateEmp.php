@@ -92,6 +92,7 @@
                                     </div>
                                     <div class="form_update">
                                         <input type="hidden" name="id" id="id" value="">
+                                        <input type="hidden" name="balance" id="balance" value="">
                                         <input type="submit" value="Save Changes" name="confirm" class="btn save_btn" onclick="updateEmpData()">
                                     </div>
                                 </form>
@@ -110,6 +111,10 @@
 </body>
 </html>
 <?php
+        }
+        else{
+            echo "<script></script>";
+            header('location: ../../../pages/admin/employee_layouts/Employee.php');
         }
     }
     else{

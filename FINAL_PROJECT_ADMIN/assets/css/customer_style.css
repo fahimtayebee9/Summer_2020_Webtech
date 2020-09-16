@@ -1,0 +1,19 @@
+table, th, tr, td {
+    padding: 10px 0px;
+    text-align: center;
+}
+.txt{
+    text-align: center!important;
+}
+.contentHolder{
+    width: 50%;
+    margin: auto;
+    margin-bottom: 50px;
+}
+.contentHolder_sub{
+    width: 100%;
+}
+.back_btn{
+    text-align: center;
+    text-decoration: none!important;
+}

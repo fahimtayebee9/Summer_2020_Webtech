@@ -9,8 +9,7 @@
                 <a class="menu-title" href="../employee_layouts/Employee.php" >Employee Details</a>
                 <ul class="submenu-ul">
                     <li class="menu-li"><a href="../employee_layouts/addEmployee.php">Add Employee</a></li>
-                    <li class="menu-li"><a href="../employee_layouts/Delete_Emp.php">Delete Employee</a></li>
-                    <li class="menu-li"><a href="../employee_layouts/UpdateEmp.php">Update Employee</a></li>
+                    <li class="menu-li"><a href="../employee_layouts/UpdateEmp.php" onclick="checkId()">Update Employee</a></li>
                 </ul>
             </li>
             <li class="menu-li">
@@ -25,7 +24,6 @@
                 <ul class="submenu-ul">
                     <li class="menu-li"><a href="../food_item_layouts/Add_Food_Item.php">Add Food Items</a></li>
                     <li class="menu-li"><a href="../food_item_layouts/Update_Food_Item.php">Update Food Items</a></li>
-                    <li class="menu-li"><a href="../food_item_layouts/Delete_Food_Item.php">Delete Food Items</a></li>
                 </ul>
             </li>
             <li class="menu-li">

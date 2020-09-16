@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="assets/css/new_styles.css">
     <title>Home-Hotel Management System</title>
 </head>
-<body>
+<body >
 
 <!-- Content Area Start-->
     <!-- Header or Banner Area Start-->

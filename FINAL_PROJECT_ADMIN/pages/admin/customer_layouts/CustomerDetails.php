@@ -1,7 +1,9 @@
 <?php
-    include "../../Php/db/DB_Config.php";
+    include "../../../db/DB_Config.php";
     session_start();
-    $name = "Admin";
+    if(isset($_SESSION['username'])){
+        $name = $_SESSION['username'];
+        $adminId = $_SESSION['uid'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,10 +14,14 @@
 
     <link rel="stylesheet" href="../../../assets/css/employeeList.css">
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
+    <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
+    <link rel="stylesheet" href="../../../assets/css/customer_style.css">
+
+    <script src="../../../assets/js/admin/customer_script.js" ></script>
 
     <title>Admin Homepage</title>
 </head>
-<body>
+<body onload="getAllCustomer()">
     <div class="left-sidebar">
         <?php
             include "../include/left_menu.php";
@@ -28,60 +34,69 @@
                         <p>All Customer informations are shown bellow.</p>
                     </div>
                     <div class="content-holder">
-                            <div class="search-area">
-                                <form action="" method="POST">
-                                    <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
-                                        <option value="#"></option>
-                                        <option value="Customer">Customer</option>
-                                        <option value="Employee">Employee</option>
-                                        <option value="Food Item">Food Item</option>
-                                    </select>
-                                    <input type="search" name="search_box" id="search_box" class="btn" >
-                                    <input type="submit" value="Search" id="" class="btn_search btn">
-                                </form>
-                            </div>
-                            <span class="border-span"></span>
-                            <div class="profile-settings dropdown">
-                                <a class="dropbtn" href="#" id="dropMenu" onclick="dropMenuAction()"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php 
-                                    if(isset($name)){
-                                        echo $name;
-                                    }   
-                                    else{
-                                        $name = "Login";
-                                        echo $name;
-                                    }
-                                ?>
-                                </a>
-                                <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
-                                    <?php
-                                        include "../include/profile_settings.php"
-                                    ?>
+                        <div class="search-area">
+                            <form action="" method="POST" class="form_search">
+                                <p>Search By : </p>
+                                <select name="searchBy" id="searchBy" class="searchBox">
+                                    <option value="#"></option>
+                                    <option value="Customer">Customer</option>
+                                    <option value="Employee">Employee</option>
+                                    <option value="Food Item">Food Item</option>
+                                </select>
+                                <div class="search">
+                                    <input type="search" name="search_box" id="search_box" class="searchBox" onkeyup="search_data()" >
+                                    <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
+                                    <div class="search_result" id="search_result">
+
+                                    </div>
                                 </div>
+                            </form>
+                        </div>
+                        <span class="border-span"></span>
+                        <div class="profile-settings dropdown">
+                            <a class="dropbtn" href="#" id="dropMenu" onclick="dropMenuAction()"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php 
+                                if(isset($name)){
+                                    echo $name;
+                                } 
+                            ?>
+                            </a>
+                            <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
+                                <?php
+                                    include "../include/profile_settings.php"
+                                ?>
                             </div>
                         </div>
-                </div>
-                <div class="row row-pad">
-                    <div class="col-4">
-                        <h4>Premium Members</h4>
-                        <h2 class="count">3</h2>
-                    </div>
-                    <div class="col-4">
-                        <h4>Gold Members</h4>
-                        <h2 class="count">47</h2>
-                    </div>
-                    <div class="col-4">
-                        <h4>New Members</h4>
-                        <h2 class="count">91</h2>
                     </div>
                 </div>
-                <div class="row row-pad">
-                    <div class="col-6">
-                        <form action="../Php/filter_user.php" method="POST" class="filter-form">
+                <div class="header-row report" >
+                    <div class="textarea">
+                        <h4>Overall Reports</h4>
+                    </div>
+                    <div class="hms-report" onload="">
+                        <div class="reports-area">
+                            <div class="report-box">
+                                <h6>Premium Member</h6>
+                                <p id="premium_count"></p>
+                            </div>
+                            <div class="report-box">
+                                <h6>Gold Member</h6>
+                                <p id="gold_count"></p>
+                            </div>
+                            <div class="report-box">
+                                <h6>New Member</h6>
+                                <p id="new_count"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content_area">
+                    <h4>All Customers List</h4>
+                    <div class="filter_area">
+                        <form action="" method="POST" class="filter-form">
                             <div class="form-group">
-                                <label for="filter">Filter Customer's : </label>
-                                <select name="user_type" class="" class="form-control">
+                                <label for="filter" class="title">Filter Customer's : </label>
+                                <select name="user_type" class="filter_select searchBox" onchange="filterCustomer()" id="filterSelect">
                                     <option value="#">Select</option>
                                     <option value="Premium">Premium</option>
                                     <option value="Gold">Gold</option>
@@ -89,82 +104,28 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Filter" name="filter" class="form-control">
+                                <a href="CustomerReservationInfo.php" class="btn btn-success">View Customer Reservations</a>
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="row row-pad">
-                    <div class="col-12">
-                        <h4>All Customers List</h4>
-                        <table class="table">
-                            <thead class="thead-dark">
+                    <div class="tableArea">
+                        <table class="tableData" id="emp_table">
+                            <thead class="thead-dark ">
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Full Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Total Booking Amount</th>
-                                    <th scope="col">Total Rooms Booked</th>
-                                    <th scope="col">Discount</th>
-                                    <th scope="col">Role/Position</th>
+                                    <th>SL.</th>
+                                    <th>Profile Picture</th>
+                                    <th>Full Name</th>
+                                    <th>Total Booking Amount</th>
+                                    <th>Total Rooms Booked</th>
+                                    <th>Discount</th>
+                                    <th>Position</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>mark@gmail.com</td>
-                                    <td>25000</td>
-                                    <td>5000</td>
-                                    <td>50%</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>mark@gmail.com</td>
-                                    <td>20000</td>
-                                    <td>4500</td>
-                                    <td>25%</td>
-                                    <td>Gold</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Anthony</td>
-                                    <td>anthony@gmail.com</td>
-                                    <td>30000</td>
-                                    <td>3000</td>
-                                    <td>10%</td>
-                                    <td>New Member</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Anthony</td>
-                                    <td>anthony@gmail.com</td>
-                                    <td>30000</td>
-                                    <td>3000</td>
-                                    <td>10%</td>
-                                    <td>New Member</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Anthony</td>
-                                    <td>anthony@gmail.com</td>
-                                    <td>30000</td>
-                                    <td>3000</td>
-                                    <td>10%</td>
-                                    <td>New Member</td>
-                                </tr>
+                            <tbody id="cusBody" class="tbody_des">
+
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="row justify-content-end">
-                    <div class="col-4">
-                        <div class="button-area text-center">
-                            <a href="CustomerReservationInfo.php" class="btn btn-success">View Customer Reservations</a>
-                            <a href="Update_Customer.php" class="btn btn-info">Update Customer Details</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -173,3 +134,9 @@
     
 </body>
 </html>
+<?php
+    }
+    else{
+        header('location: ../../../common_pages/login.php');
+    }
+?>

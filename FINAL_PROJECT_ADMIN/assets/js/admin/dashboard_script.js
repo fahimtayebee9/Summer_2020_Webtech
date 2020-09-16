@@ -56,13 +56,11 @@ function setCustomerData(){
 
 // LOAD EMP DATA
 function countAllEmployee(){
-    var role1 = "Manager";
-    var role2 = "Chef";
-    var role3 = "Worker";
+    var role1 = "Employee";
     var xhttp = new XMLHttpRequest();
     xhttp.open('POST', '../../../phpValidations/admin/other/dashBoard_data.php', true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhttp.send('userTypeEmp='+role1+"&userTypeEmp2="+role2+"&userTypeEmp3="+role3);
+    xhttp.send('userTypeEmp='+role1);
 
     xhttp.onreadystatechange = function (){
         if(this.readyState == 4 && this.status == 200){

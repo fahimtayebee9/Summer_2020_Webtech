@@ -1,13 +1,13 @@
 <?php
     require_once('../../../db/config.php');
-    function getEmpCount($type1,$type2,$type3){
+    function getEmpCount($type1){
         $conn = dbConnection();
 
         if(!$conn){
             echo "DB connection error";
         }
 
-        $sql = "select * from users where userType like '$type1' or userType like '$type3' or userType like '$type2'";
+        $sql = "select * from users where userType like '$type1'";
         $result = mysqli_query($conn, $sql);
 
         if(mysqli_num_rows($result) == 0){

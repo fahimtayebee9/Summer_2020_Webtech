@@ -43,7 +43,7 @@ function getAllEmployee(){
             }
         }	
     }
-
+    resetPaymentCount();
     getEmpCount();
 }
 
@@ -88,6 +88,7 @@ function get_EmployeeDataById(id){
                     document.getElementById('salary').value = empObj.salary;
                     document.getElementById('bonus').value = empObj.bonus;
                     document.getElementById('rating').value = empObj.rating;
+                    document.getElementById('balance').value = empObj.balance;
                     var imgPath = "../../../uploads/"+empObj.profile_picture;
                     document.getElementById('userImg').src = imgPath;
                 }else{
@@ -95,6 +96,9 @@ function get_EmployeeDataById(id){
                 }
             }	
         }
+    }
+    else{
+        alert('Please Select an Employee to update..');
     }
 }
 
@@ -199,79 +203,48 @@ function removeEmp(){
 }
 
 // ADD NEW EMPLOYEE
-function addEmployee(){
-    var validName = validateEmail();
-    var validEmail = validateEmail();
-    var validPassword = validatePassword();
-    var validDate = validateDate();
-    var validSalary = validateSalary();
-    var validRole = validateRole();
-
-    var name = document.getElementById('fname').value;
+function addNewEmp(){
+    var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('onepass').value;
     var salary = document.getElementById('salary').value;
     var role = document.getElementById('position').value;
     var date = document.getElementById('dob').value;
-    alert(date);
-    
-    var dataObj = {
-        'name' : name,
-        'email' : email,
-        'password' : password,
-        'salary' : salary,
-        'role' : role,
-        'date' : date
+    if( name.length != 0 && email.length != 0 && date.length != 0 && password.length !=0 && salary.length !=0 && role.length != 0){
+        
+        var dataObj = {
+            "name" : name,
+            "email" : email,
+            "password" : password,
+            "salary" : salary,
+            "role" : role,
+            "date" : date
+        }
+        var emp = JSON.stringify(dataObj);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '../../../phpValidations/admin/other/employee_controller.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.send('empData_add='+emp);
+        xhttp.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+                if(this.responseText != ""){
+                    if(this.responseText == 1){
+                        alert("Employee Added Successfully");
+                        getAllEmployee();
+                        window.location = "../../../pages/admin/employee_layouts/Employee.php";
+                    }
+                    else{
+                        alert(this.responseText);
+                    }
+                }
+            }	
+        }
     }
-
-    var empObjAdd = JSON.stringify(dataObj);
-
-    alert(empObjAdd);
-
-    // if(validName && validEmail && validDate && validPassword && validSalary && validRole){
-    //     var name = document.getElementById('fname').value;
-    //     var email = document.getElementById('email').value;
-    //     var password = document.getElementById('onepass').value;
-    //     var salary = document.getElementById('salary').value;
-    //     var role = document.getElementById('position').value;
-    //     var date = document.getElementById('dob').value;
-
-    //     var dataObj = {
-    //         'name' : name,
-    //         'email' : email,
-    //         'password' : password,
-    //         'salary' : salary,
-    //         'role' : role,
-    //         'date' : date
-    //     }
-
-    //     var empObjAdd = JSON.stringify(dataObj);
-
-    //     alert(empObjAdd);
-
-    //     var xhttp = new XMLHttpRequest();
-    //     xhttp.open('POST', '../../../phpValidations/admin/other/employee_controller.php', true);
-    //     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    //     xhttp.send('empData_add='+empObjAdd);
-    //     xhttp.onreadystatechange = function (){
-    //         if(this.readyState == 4 && this.status == 200){
-    //             if(this.responseText != ""){
-    //                 if(this.responseText == 1){
-    //                     alert("Employee Added Successfully");
-    //                     getAllEmployee();
-    //                     window.location = "../../../pages/admin/employee_layouts/Employee.php";
-    //                 }
-    //                 else{
-    //                     alert(this.responseText);
-    //                 }
-    //             }
-    //         }	
-    //         alert(this.responseText);
-    //     }
-    // }
-    // else{
-    //     alert("INVALID DATA INSERTED...");
-    // }
+    else{
+        alert("Not Valid");
+    }
+    
 }
 
 // EMAIL VALIDATION START
@@ -488,6 +461,7 @@ function validateDate(){
     }
 }
 
+// SET ONE TIME PASSWORD
 function setOneTimePass(){
     document.getElementById('onepass').value = Math.floor((Math.random() * 9999999) + 10000000);
 }
@@ -503,6 +477,52 @@ function validatePassword(){
     }
 }
 
-function getEmpObject(){
+// PAY SALARY (Date : 15 And Count : 1)
+var payment = false; 
+function paySalary(adminId){
+    var date = new Date();
+    var day = date.getDate();
+    var valid = resetPaymentCount();
     
+    if(day == 15 && valid){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '../../../phpValidations/admin/other/employee_controller.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.send('paySalary='+"emp"+"&adminId="+adminId);
+        alert("Paying Salary...");
+        xhttp.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+                if(this.responseText == 1){
+                    alert("All Employee Salary Paid.");
+                }else{
+                    // this.payment = false;
+                    alert(this.responseText);
+                }
+            }	
+        }
+    }
+    else{
+        var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        var dt = date.getDate()+" "+ months[date.getMonth()] + ", "+ date.getFullYear();
+        alert("Can not pay Salary. Today is " + dt);
+    }
+}
+
+function resetPaymentCount(){
+    var date = new Date();
+    var day = date.getDate();
+    if(day != 15 && !payment || payment){
+        return false;
+    }
+    else if(day == 15 && !payment){
+        return true;
+    }
+}
+
+function checkId(){
+    var urlLink = document.URL;
+    if(!urlLink.includes('?id=')){
+        alert('Please Select an Employee to update..');
+        // window.location
+    }
 }
