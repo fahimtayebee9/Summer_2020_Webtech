@@ -19,7 +19,7 @@
 
     <script src="../../../assets/js/admin/customer_script.js" ></script>
 
-    <title>Admin Homepage</title>
+    <title>Manage Customer</title>
 </head>
 <body onload="getAllCustomer()">
     <div class="left-sidebar">

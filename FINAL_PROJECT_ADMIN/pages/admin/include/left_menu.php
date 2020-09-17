@@ -13,7 +13,7 @@
                 </ul>
             </li>
             <li class="menu-li">
-                <a class="menu-title" href="../customer_layouts/CustomerDetails.php">Customer Details</a>
+                <a class="menu-title cusMenu" id="cusMenu" href="../customer_layouts/CustomerDetails.php">Customer Details</a>
                 <ul class="submenu-ul">
                     <li class="menu-li"><a href="../customer_layouts/CustomerReservationInfo.php">Customer Reservations</a></li>
                     <li class="menu-li"><a href="../customer_layouts/Update_Customer.php">Update Customer</a></li>
@@ -34,6 +34,9 @@
             </li>
             <li class="menu-li">
                 <a class="menu-title" href="../admin_layouts/notifications.php">Join Requests</a>
+            </li>
+            <li class="menu-li">
+                <a class="menu-title" href="../food_item_layouts/manageInventories.php">Manage Inventories</a>
             </li>
             <li class="menu-li">
                 <a class="menu-title" href="../../../common_php/logout.php">Logout</a>

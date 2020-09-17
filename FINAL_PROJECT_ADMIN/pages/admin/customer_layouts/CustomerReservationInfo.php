@@ -1,7 +1,9 @@
 <?php
-    include "../../Php/db/DB_Config.php";
+    include "../../../db/DB_Config.php";
     session_start();
-    $name = "Admin";
+    if(isset($_SESSION['username'])){
+        $name = $_SESSION['username'];
+        $adminId = $_SESSION['uid'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -10,12 +12,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" href="../../../assets/css/customer_style.css">
     <link rel="stylesheet" href="../../../assets/css/employeeList.css">
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
+    <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
     
-    <title>Admin Homepage</title>
+
+    <script src="../../../assets/js/admin/customer_script.js" ></script>
+    
+    <title>Reservations</title>
 </head>
-<body>
+<body onload="loadReservationData()">
     <section class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -27,21 +34,26 @@
                 <div class="content-area scrollbar title-header-main">
                     <div class="header-row title-header">
                         <div class="textarea">
-                            <h4>Customer ID : 567</h4>
+                            <h4>Reservations Details</h4>
                             <p>All Reservations are shown bellow.</p>
                         </div>
                         <div class="content-holder">
                             <div class="search-area">
-                                <form action="" method="POST">
+                                <form action="" method="POST" class="form_search">
                                     <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
+                                    <select name="searchBy" id="searchBy" class="searchBox">
                                         <option value="#"></option>
                                         <option value="Customer">Customer</option>
                                         <option value="Employee">Employee</option>
                                         <option value="Food Item">Food Item</option>
                                     </select>
-                                    <input type="search" name="search_box" id="search_box" class="btn" >
-                                    <input type="submit" value="Search" id="" class="btn_search btn">
+                                    <div class="search">
+                                        <input type="search" name="search_box" id="search_box" class="searchBox" onkeyup="search_data()" >
+                                        <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
+                                        <div class="search_result" id="search_result">
+
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <span class="border-span"></span>
@@ -50,11 +62,7 @@
                                 <?php 
                                     if(isset($name)){
                                         echo $name;
-                                    }   
-                                    else{
-                                        $name = "Login";
-                                        echo $name;
-                                    }
+                                    } 
                                 ?>
                                 </a>
                                 <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
@@ -65,80 +73,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row-pad">
-                        <div class="col-4">
-                            <h4>Total Reservations</h4>
-                            <h2 class="count">397</h2>
+                    <div class="header-row report" >
+                        <div class="textarea">
+                            <h4>Overall Reports</h4>
                         </div>
-                        <div class="col-4">
-                            <h4>Active Reservations</h4>
-                            <h2 class="count">47</h2>
-                        </div>
-                        <div class="col-4">
-                            <h4>Expired</h4>
-                            <h2 class="count">350</h2>
+                        <div class="hms-report" onload="">
+                            <div class="reports-area">
+                                <div class="report-box">
+                                    <h6>Premium Member</h6>
+                                    <p id="premium_count"></p>
+                                </div>
+                                <div class="report-box">
+                                    <h6>Gold Member</h6>
+                                    <p id="gold_count"></p>
+                                </div>
+                                <div class="report-box">
+                                    <h6>New Member</h6>
+                                    <p id="new_count"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row row-pad">
-                        <div class="col-6">
-                            <form action="../Php/filter_user_reservations.php" method="POST" class="filter-form">
+                    <div class="content_area">
+                        <div class="form_filter">
+                            <form action="" method="POST" class="filter-form">
                                 <div class="form-group">
-                                    <label for="revfrom">Filter Reservation : </label>
-                                    <input type="date" name="revfrom" id="revfrom" class="form-control">(From)
+                                    <label for="revfrom" class="title">Filter Reservation : </label>
+                                    <input type="date" name="revfrom" id="revfrom" onchange="getReservationByDate()" class="searchBox revDate">(From)
                                 </div>
                                 <div class="form-group">
                                     <label for="revto"></label>
-                                    <input type="date" name="revto" id="revto"  class="form-control">(To)
+                                    <input type="date" name="revto" id="revto" onchange="getReservationByDate()" class="searchBox revDate">(To)
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Filter" name="filter" class="form-control btn btn-success">
+                                    <input type="reset" value="reset" name="reset" onclick="loadReservationData()" class="form-control btn btn-success">
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <div class="row row-pad">
-                        <div class="col-12">
-                            <h4>All Customers Reservation List</h4>
-                            <table class="table">
-                                <thead class="thead-dark">
+                        <div class="tableArea">
+                            <table class="tableData" id="emp_table">
+                                <thead class="thead-dark ">
                                     <tr>
-                                        <th scope="col">Reservation No</th>
-                                        <th scope="col">Customer ID</th>
-                                        <th scope="col">Reserved From</th>
-                                        <th scope="col">Reserved To</th>
-                                        <th scope="col">Total Amount</th>
-                                        <th scope="col">Paid Amount</th>
-                                        <th scope="col">Due Amount</th>
-                                        <th></th>
+                                        <th>SL.</th>
+                                        <th>Profile Picture</th>
+                                        <th>Full Name</th>
+                                        <th>Reservation Date</th>
+                                        <th>Total Amount</th>
+                                        <th>Paid Amount</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
-                                    $rev_list = fopen("../../../assets/files/reservations.txt", "r") or die("Unable to open file!");
-                                    $i = 1;
-                                    $rowCount = 1;
-                                    while(!feof($rev_list)) {
-                                        $rev = fgets($rev_list);
-                                        $rev = explode('|', $rev);
-                                        $revFromDate = trim($rev[0]);
-                                        $revToDate = trim($rev[1]);
-                                        $totalAmount = trim($rev[2]);
-                                        $paid = trim($rev[3]);
-                                        $due = trim($rev[4]);
-                                ?>
-                                        <tr>
-                                            <th scope="row">#REV-<?php echo rand(1000,2000)?></th>
-                                            <td>HMS-<?php echo rand(10000,100000)?>-C</td>
-                                            <td><?php echo $revFromDate?></td>
-                                            <td><?php echo $revToDate?></td>
-                                            <td><?php echo $totalAmount?></td>
-                                            <td><?php echo $paid?></td>
-                                            <td><?php echo $due?></td>
-                                            <td><a href="User_Reservation_information.php" class="btn btn-light">View</a></td> <!--If clicked then the data for this row will be passed to another page -->
-                                        </tr>
-                                <?php
-                                    }
-                                ?>
+                                <tbody id="revBody" class="tbody_des">
+
                                 </tbody>
                             </table>
                         </div>
@@ -150,3 +136,9 @@
     
 </body>
 </html>
+<?php
+    }
+    else{
+        header('location: ../../../common_pages/login.php');
+    }
+?>

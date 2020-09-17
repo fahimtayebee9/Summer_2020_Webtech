@@ -27,7 +27,7 @@
             echo "DB connection error";
         }
 
-        $sql = "SELECT users.id, users.name, users.profile_picture, customer_info.totalBookingAmount,customer_info.totalBookedRooms,customer_info.discount,customer_info.position,customer_info.user_id FROM users INNER JOIN customer_info ON users.id = customer_info.user_id where users.userType='Customer'";
+        $sql = "SELECT users.id, users.name,users.email,users.dateOfBirth, users.profile_picture, customer_info.totalBookingAmount,customer_info.totalBookedRooms,customer_info.discount,customer_info.position,customer_info.user_id FROM users INNER JOIN customer_info ON users.id = customer_info.user_id where users.userType='Customer'";
         $result = mysqli_query($conn, $sql);
 
         $cus = (object)array();
@@ -41,6 +41,8 @@
             $cus->discount = $row['discount'];
             $cus->position = $row['position'];
             $cus->user_id = $row['user_id'];
+            $cus->email = $row['email'];
+            $cus->dateOfBirth = $row['dateOfBirth'];
         }
         
         return $cus;
@@ -101,5 +103,43 @@
         }
         
         return $cus;
+    }
+
+    function getAllReservation(){
+        $conn = dbConnection();
+
+        if(!$conn){
+            echo "DB connection error";
+        }
+
+        $revSql = "select users.id,users.name,users.profile_picture,reservation.rev_from,reservation.rev_to,reservation.total_amount,reservation.paid_amount,reservation.status,reservation.user_id from users INNER JOIN reservation ON users.id = reservation.user_id where users.userType ='Customer'";
+        $allResult = mysqli_query($conn, $revSql);
+
+        $allRev = [];
+
+        while($row = mysqli_fetch_assoc($allResult)){
+            array_push($allRev,$row);
+        }
+
+        return $allRev;
+    }
+
+    function getReservation_byDate($dateFrom,$dateTo){
+        $conn = dbConnection();
+
+        if(!$conn){
+            echo "DB connection error";
+        }
+
+        $revSql = "select users.id,users.name,users.profile_picture,reservation.rev_from,reservation.rev_to,reservation.total_amount,reservation.paid_amount,reservation.status,reservation.user_id from users INNER JOIN reservation ON users.id = reservation.user_id where rev_from >='$dateFrom' AND rev_to <='$dateTo'";
+        $allResult = mysqli_query($conn, $revSql);
+
+        $allRev = [];
+
+        while($row = mysqli_fetch_assoc($allResult)){
+            array_push($allRev,$row);
+        }
+
+        return $allRev;
     }
 ?>

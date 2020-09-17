@@ -17,3 +17,27 @@ table, th, tr, td {
     text-align: center;
     text-decoration: none!important;
 }
+.form_filter form{
+    width: 58%!important;
+}
+.revDate{
+    margin-right: 15px;
+}
+.info_sub{
+    width: 75%!important;
+}
+.tbl_tContent{
+    text-align: left!important;
+    font-family: 'Poppins',sans-serif;
+    padding-left: 15px;
+}
+.td_btn{
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.btn-info{
+    text-decoration: none;
+}

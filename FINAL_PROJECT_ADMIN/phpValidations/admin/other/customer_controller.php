@@ -77,6 +77,26 @@
 
         printData($customersList);
     }
+    // CUSTOMER RESERVATION
+    if(isset($_POST['getAllRev'])){
+        $allRev = getAllReservation();
+
+        echo printReservation($allRev);
+    }
+    if(isset($_POST['dateFrom']) && isset($_POST['dateTo'])){
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+        if($dateFrom != null && $dateTo != null){
+            $allRev = getReservation_byDate($dateFrom,$dateTo);
+            echo printReservation($allRev);
+        }
+    }
+    if(isset($_POST['view_id'])){
+        $view_id = $_POST['view_id'];
+        $customer = get_dataById($view_id);
+        $cusObj = json_encode($customer);
+        echo $cusObj;
+    }
 
 
     function printData($allCustomer){
@@ -92,6 +112,7 @@
                             "<td>{$customer['discount']}%</td>".
                             "<td>{$customer['position']}</td>".
                             "<td>". 
+                                "<a href='Customer_Info_Page.php?id={$customer['id']}' class='btn btn-info'>View</a>".
                                 "<a href='Update_Customer.php?id={$customer['id']}' class='btn btn-info'>Edit</a>".
                                 "<button id='cus-{$customer['id']}' onclick='removeCus()' class='btn btn-danger'>Remove</button>".
                             "</td>".
@@ -100,4 +121,27 @@
         }
         echo $printDoc;
     }
+
+    function printReservation($allRev){
+        $printDoc = "";
+        $count = 1;
+        foreach($allRev as $rev){
+            $date_from_arr =  explode('-',$rev['rev_from']);
+            $date_from = $date_from_arr[2]."/".$date_from_arr[1]."/".$date_from_arr[0];
+            $date_to_arr =  explode('-',$rev['rev_to']);
+            $date_to = $date_to_arr[2]."/".$date_to_arr[1]."/".$date_to_arr[0];
+            $printDoc .= "<tr class='rowGap'>".
+                            "<th>SL.{$count}</th>".
+                            "<td><img src='../../../uploads/{$rev['profile_picture']}' alt='' style='width: 60px; height: 60px; border-radius: 50%;' class='img_pic'></td>".
+                            "<td>{$rev['name']}</td>".
+                            "<td>$date_from TO $date_to</td>".
+                            "<td>{$rev['total_amount']} BDT</td>".
+                            "<td>{$rev['paid_amount']} BDT</td>".
+                            "<td>{$rev['status']}</td>".
+                        "</tr>";
+            $count++;
+        }
+        return $printDoc;
+    }
+
 ?>

@@ -1,0 +1,27 @@
+.tableView {
+    width: 100%;
+}
+.foodImg{
+    width: 140px!important;
+    height: 100px!important;
+}
+.view_pageTable{
+    display: flex;
+    justify-content: space-between;
+}
+.tableBoxArea{
+    width: 65%;
+}
+.item_img{
+    width: 33%;
+    border: 1px solid rgb(34, 34, 34);
+    text-align: center;
+}
+#item_image{
+    width: 455px!important;
+    max-height: 500px;
+}
+.item_img h4{
+    border-bottom: 2px dashed rgb(34, 34, 34);
+    /* margin-bottom: 15px; */
+}

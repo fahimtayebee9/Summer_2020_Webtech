@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
     <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
+    <link rel="stylesheet" href="../../../assets/css/leftMenu_style.css">
 
     <script src="../../../assets/js/admin/dashboard_script.js" ></script>
 
@@ -51,7 +52,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                
                             </div>
                             <span class="border-span"></span>
                             <div class="profile-settings dropdown">
@@ -63,7 +63,7 @@
                                 ?>
                                 </a>
                                 <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="profile_details.php">Profile Details</a>
+                                    <a class="dropdown-item" href="../../../common_pages/profile_details.php">Profile Details</a>
                                     <a class="dropdown-item" href="../../../common_pages/change_password.php">Change Password</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="../../../common_php/logout.php" id="logout">Logout</a>

@@ -80,7 +80,7 @@ function validateData(customer){
     var checkStatus = checkPosition(customer.position);
     var validAmount = checkAmount(customer.totalBookingAmount);
     var validBookingRoomCount = checkRoomCount(customer.totalBookedRooms);
-    alert("Status : "+ checkStatus + "\nAmount : "+validAmount + "\nCount :"+validBookingRoomCount);
+    
     if(checkStatus && validAmount && validBookingRoomCount){
         document.getElementById('discount').disabled = false;
     }
@@ -185,5 +185,80 @@ function filterCustomer(){
     }
     else{
         getAllCustomer();
+    }
+}
+
+// LOAD RESERVATION DATA
+function loadReservationData(){
+    var str = "valid";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../../../phpValidations/admin/other/customer_controller.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('getAllRev='+str);
+
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                document.getElementById('revBody').innerHTML = this.responseText;
+            }else{
+                document.getElementById('revBody').innerHTML = "";
+            }
+        }	
+    }
+    getAllCustomerCount();
+}
+
+// GET RESERVATION BY DATE
+function getReservationByDate(){
+    var dateFrom = document.getElementById('revfrom').value;
+    var dateTo = document.getElementById('revto').value;
+    alert(dateFrom + "\n" + dateTo);
+    if(dateFrom != null && dateTo != null){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '../../../phpValidations/admin/other/customer_controller.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.send('dateFrom='+dateFrom+"&dateTo="+dateTo);
+
+        xhttp.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+                if(this.responseText != ""){
+                    document.getElementById('revBody').innerHTML = this.responseText;
+                }else{
+                    document.getElementById('revBody').innerHTML = "";
+                }
+            }	
+        }
+    }
+}
+
+function load_dataById(view_id){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../../../phpValidations/admin/other/customer_controller.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_id='+view_id);
+
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                var customer = JSON.parse(this.responseText);
+                document.getElementById('name').innerHTML                = customer.name;
+                document.getElementById('email').innerHTML               = customer.email;
+                document.getElementById('dob').innerHTML                 = customer.dateOfBirth;
+                document.getElementById('totalBooking').innerHTML        = customer.totalBookingAmount +" BDT";
+                document.getElementById('totalReservation').innerHTML    = customer.totalBookedRooms;
+                document.getElementById('discount').innerHTML            = customer.discount;
+                document.getElementById('status').innerHTML              = customer.position;
+                var imgPath = "../../../uploads/"+customer.profile_picture;
+                document.getElementById('userImg').src = imgPath;
+            }else{
+                document.getElementById('name').innerHTML                = "";
+                document.getElementById('email').innerHTML               = "";
+                document.getElementById('dob').innerHTML                 = "";
+                document.getElementById('totalBooking').innerHTML        = "";
+                document.getElementById('totalReservation').innerHTML    = "";
+                document.getElementById('discount').innerHTML            = "";
+                document.getElementById('status').innerHTML              = "";
+            }
+        }	
     }
 }
