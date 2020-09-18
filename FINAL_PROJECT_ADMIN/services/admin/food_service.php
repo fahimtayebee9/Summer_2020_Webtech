@@ -4,28 +4,29 @@
 
     function insert_food($item){
         $db = dbConnection();
-        $sql = "insert into food_menu values('{$item['item_no']}', '{$item['item_name']}', '{$item['price']}', '{$item['ingradients']}', '{$item['category']}', '{$item['rating']}')";
+        $sql = "insert into food_menu(id,item_no,item_name,price,category,ingradients,item_image,rating) values('','$item->item_no', '$item->item_name', '$item->price','$item->category', '$item->ingradients', '$item->item_image','0')";
         $result = mysqli_query($db,$sql);
         if($result){
-            echo true;
+            return $result;
         }
         else{
-            echo false;
+            return mysqli_error($db);
         }
     }
 
     function update_item($item){
-        $valid = search_item($item['item_name']);
         $db = dbConnection();
-        if($valid){
-            $sql = "update food_menu set item_name='{$item['item_name']}', price='{$item['price']}',ingradients='{$item['ingradients']}',category='{$item['category']}' rating='{$item['rating']}' where item_no='{$item['item_no']}'";
-            $result = mysqli_query($db,$sql);
-            if($result){
-                echo 1;
-            }
-            else{
-                echo mysqli_error($db);
-            }
+        if(!$db){
+            echo "DB NOT CONNECTED";
+        }
+
+        $sql = "update food_menu set item_name='$item->item_name', price='$item->price',ingradients='$item->ingradients',category='$item->category',item_image='$item->item_image' where id='$item->id'";
+        $result = mysqli_query($db,$sql);
+        if($result){
+            echo 1;
+        }
+        else{
+            echo mysqli_error($db);
         }
     }
 
@@ -43,13 +44,13 @@
 
     function delete_item($item_no){
         $db = dbConnection();
-        $del_sql = "delete from food_menu where item_no='$item_no'";
+        $del_sql = "delete from food_menu where id='$item_no'";
         $del_result = mysqli_query($db,$del_sql);
         if($del_result){
-            echo true;
+            return $del_result;
         }
         else{
-            echo false;
+            return "Item Not Deleted\n" + mysqli_error($db);
         }
     }
 
@@ -58,7 +59,7 @@
         $sql = "select * from food_menu where category like '%$category%'";
         $result = mysqli_query($db,$sql);
         if(mysqli_num_rows($result) == 0){
-            return false;
+            return 0;
         }
         else{
             $items = [];

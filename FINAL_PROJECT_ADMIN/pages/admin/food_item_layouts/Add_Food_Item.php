@@ -1,7 +1,8 @@
 <?php
-    include "../../Php/db/DB_Config.php";
+    include "../../../db/DB_Config.php";
     session_start();
-    $name = "Admin";
+    if(isset($_SESSION['username'])){
+        $name = $_SESSION['username'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -11,10 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
+    <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
+    <link rel="stylesheet" href="../../../assets/css/foodMenu_style.css">
+    <link rel="stylesheet" href="../../../assets/css/employeeList.css">
 
-    <title>Admin Homepage</title>
+    <script src="../../../assets/js/admin/foodMenu_script.js" ></script>
+    <script src="../../../assets/js/admin/dashboard_script.js" ></script>
+
+    <title>Add New Item</title>
 </head>
-<body>
+<body onload="getItemNo()">
     <section class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -31,16 +38,21 @@
                         </div>
                         <div class="content-holder">
                             <div class="search-area">
-                                <form action="" method="POST">
+                                <form action="" method="POST" class="form_search">
                                     <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
+                                    <select name="searchBy" id="searchBy" class="searchBox">
                                         <option value="#"></option>
                                         <option value="Customer">Customer</option>
                                         <option value="Employee">Employee</option>
                                         <option value="Food Item">Food Item</option>
                                     </select>
-                                    <input type="search" name="search_box" id="search_box" class="btn" >
-                                    <input type="submit" value="Search" id="" class="btn_search btn">
+                                    <div class="search">
+                                        <input type="search" name="search_box" id="search_box" class="searchBox" onkeyup="search_data()" >
+                                        <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
+                                        <div class="search_result" id="search_result">
+
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <span class="border-span"></span>
@@ -64,53 +76,84 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center m-auto">
-                        <div class="col-5">
-                            <h5 class="text-center">Add Item Informations</h5>
-                            <form action="../Php/add_fooditem_validation.php" method="POST">
-                                <div class="form-group">
-                                    <label for="ino">Item No</label>
-                                    <input type="text" name="ino" id="ino" class="form-control" value="<?php $_SESSION['ino']="FI-".rand(100,1000); echo "FI-".rand(100,1000);?>" disabled> <!-- Will be Inactive and serial no will be calculated from database data row count -->
+                    <div class="contentHolder">
+                        <div class="form_areaHolder">
+                            <form>
+                                <div class="form_fieldHolder">
+                                    <div class="filed_holder">
+                                        <div class="form_update">
+                                            <label for="item_no" class="title">Item No</label>
+                                            <input type="text" name="item_no" id="item_no" class="form_field ftp" disabled> <!-- Will be Inactive on selection -->
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="item_name" class="title">Item Name</label>
+                                            <input type="text" name="item_name" id="item_name" class="form_field ftp">
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="category" class="title">Category</label>
+                                            <select name="item_category" id="item_category" class="filter_select form_field searchBox ftp">
+                                                <option value="">Select</option>
+                                                <option value="Breakfast">Breakfast</option>
+                                                <option value="Dinner">Dinner</option>
+                                                <option value="Launch">Launch</option>
+                                                <option value="Fast-Food">Fast Food</option>
+                                            </select>
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="price" class="title">Price</label>
+                                            <input type="number" name="price" id="price" class="form_field ftp"> 
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="ingradients" class="title">Ingradients</label>
+                                            <div class="ingrad_check">
+                                                <div class="part_ing">
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Oil">Oil
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Salt">Salt
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Sugar">Sugar
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Chicken">Chicken
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Spices">Spices
+                                                    </label>
+                                                </div>
+                                                <div class="part_ing">
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Vinegar">Vinegar
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Rice">Rice
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Bread">Bread
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Cheese">Cheese
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Vegetables">Vegetables
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profileImage_holder">
+                                        <h5 id="tit">Item Image</h5>
+                                        <img src="" id="item_image_upload" alt="Item Image">
+                                        <input type="file" name="item_image_change"  accept="image/*" id="item_image_change" class="form_field file_ftp" onchange="changeImage()">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="item_name">Item Name</label>
-                                    <input type="text" name="item_name" id="item_name" class="form-control" required>
+                                <div class="form_update btn_holderArea">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <a href="../../../pages/admin/food_item_layouts/Food_Menu.php" class="btn btn-info">Back</a>
+                                    <input type="submit" value="Add Item" name="confirm" class="btn save_btn" onclick="addNew_item()">
                                 </div>
-                                <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <select name="category" class="" class="form-control" data-live-search="true">
-                                        <option value="#">Select</option>
-                                        <option value="Breakfast" >Breakfast</option>
-                                        <option value="Dinner" >Dinner</option>
-                                        <option value="Launch">Launch</option>
-                                        <option value="Fast-Food" >Fast-Food</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="number" name="price" id="price" class="form-control"> 
-                                </div>
-                                <?php
-                                    if(isset($_SESSION['categoryError'])){
-                                        unset($_SESSION['success']);
-                                ?>
-                                        <p class="text-danger"><?php echo $_SESSION['categoryError'];?></p>
-                                <?php
-                                    }
-                                ?>
-                                <div class="form-group">
-                                    <input type="submit" value="Confirm" name="confirm" class="btn btn-primary">
-                                </div>
-                                <?php
-                                    unset($_SESSION['categoryError']);
-                                    if(isset($_SESSION['success'])){
-                                        unset($_SESSION['categoryError']);
-                                ?>
-                                        <p class="text-success"><?php echo $_SESSION['success'];?></p>
-                                <?php
-                                    }
-                                    unset($_SESSION['success']);
-                                ?>
                             </form>
                         </div>
                     </div>
@@ -118,6 +161,11 @@
             </div>
         </div>
     </section>
-    
 </body>
 </html>
+<?php
+    }
+    else{
+        header('location: ../../../common_pages/login.php');
+    }
+?>

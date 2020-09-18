@@ -43,14 +43,14 @@
                             <div class="search-area">
                                 <form action="" method="POST" class="form_search">
                                     <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
+                                    <select name="searchBy" id="searchBy" class="btn searchBox">
                                         <option value="#"></option>
                                         <option value="Customer">Customer</option>
                                         <option value="Employee">Employee</option>
                                         <option value="Food Item">Food Item</option>
                                     </select>
                                     <div class="search">
-                                        <input type="search" name="search_box" id="search_box" class="btn" onkeyup="search_data()" >
+                                        <input type="search" name="search_box" id="search_box" class="btn searchBox" onkeyup="search_data()" >
                                         <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
                                         <div class="search_result" id="search_result">
 
@@ -82,17 +82,17 @@
                             <form action="" method="POST" class="filter-form">
                                 <div class="form-group">
                                     <label for="filter" class="title">Filter Menu : </label>
-                                    <select name="searchBy" id="searchBy" class="searchBox">
+                                    <select name="searchBy" id="filter_type" class="searchBox" onchange="filterItems()">
                                         <option value="#"></option>
                                         <option value="BreakFast">BreakFast</option>
                                         <option value="Launch">Launch</option>
                                         <option value="Dinner">Dinner</option>
-                                        <option value="Fast Food">Fast Food</option>
+                                        <option value="Fast-Food">Fast Food</option>
                                     </select>
-                                    <button type="reset" class="btn btn-reset" onclick="resetFilter()">Reset</button>
+                                    <button type="reset" class="btn btn-reset" onclick="getAllItems()">Reset</button>
                                 </div>
                                 <div class="form-group">
-                                    <a href="Add_Food_Item.php" class="btn btn-success">Add New Employee</a>
+                                    <a href="Add_Food_Item.php" class="btn btn-success">Add New Food Item</a>
                                 </div>
                             </form>
                         </div>
@@ -128,7 +128,7 @@
         if(isset($_GET['id'])){
             $f_id = $_GET['id'];
 ?>  
-<body onload="getItem_byId(<?=$f_id;?>)">
+<body onload="getItem_byId(<?=$f_id;?>,'view')">
     <section class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -222,7 +222,7 @@
                         <div class="btn_area_item">
                             <a href="../../../pages/admin/food_item_layouts/Food_Menu.php" class="btn btn-info">Back</a>
                             <a href="../../../pages/admin/food_item_layouts/Update_Food_Item.php?id=<?=$f_id;?>" class="btn btn-success">Update</a>
-                            <button id="item-<?=$f_id;?>" onclick='removeItem()' class='btn btn-danger'>Remove</button>
+                            <button id="item-<?=$f_id;?>" onclick='removeItem(<?=$f_id;?>)' class='btn btn-danger'>Remove</button>
                         </div>
                     </div>
                 </div>

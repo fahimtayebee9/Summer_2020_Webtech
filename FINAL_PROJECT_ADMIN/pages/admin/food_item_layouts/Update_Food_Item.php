@@ -1,7 +1,10 @@
 <?php
-    include "../../Php/db/DB_Config.php";
+    include "../../../db/DB_Config.php";
     session_start();
-    $name = "Admin";
+    if(isset($_SESSION['username'])){
+        $name = $_SESSION['username'];
+        if(isset($_GET['id'])){
+            $f_id = $_GET['id'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -10,12 +13,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="../../../assets/css/employeeList.css">
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
+    <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
+    <link rel="stylesheet" href="../../../assets/css/foodMenu_style.css">
+    <link rel="stylesheet" href="../../../assets/css/employeeList.css">
 
-    <title>Admin Homepage</title>
+    <script src="../../../assets/js/admin/foodMenu_script.js" ></script>
+
+    <title>Update Item</title>
 </head>
-<body>
+<body onload="getItem_byId(<?=$f_id;?>,'update')">
     <section class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -27,21 +34,26 @@
                 <div class="content-area scrollbar title-header-main">
                     <div class="header-row title-header">
                         <div class="textarea">
-                            <h4>Update Menu Item(Food)</h4>
-                            <p>Select Food Item To Update....</p>
+                            <h4 id="item_title"></h4>
+                            <p>Insert Food Item Informations To Update....</p>
                         </div>
                         <div class="content-holder">
                             <div class="search-area">
-                                <form action="" method="POST">
+                                <form action="" method="POST" class="form_search">
                                     <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
+                                    <select name="searchBy" id="searchBy" class="searchBox">
                                         <option value="#"></option>
                                         <option value="Customer">Customer</option>
                                         <option value="Employee">Employee</option>
                                         <option value="Food Item">Food Item</option>
                                     </select>
-                                    <input type="search" name="search_box" id="search_box" class="btn" >
-                                    <input type="submit" value="Search" id="" class="btn_search btn">
+                                    <div class="search">
+                                        <input type="search" name="search_box" id="search_box" class="searchBox" onkeyup="search_data()" >
+                                        <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
+                                        <div class="search_result" id="search_result">
+
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <span class="border-span"></span>
@@ -50,11 +62,7 @@
                                 <?php 
                                     if(isset($name)){
                                         echo $name;
-                                    }   
-                                    else{
-                                        $name = "Login";
-                                        echo $name;
-                                    }
+                                    } 
                                 ?>
                                 </a>
                                 <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
@@ -65,96 +73,83 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Update Table From DB Data -->
-                    <div class="row row-pad">
-                        <div class="col-12">
-                            <h4>Menu List</h4>
-                            <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Item No</th>
-                                        <th scope="col">Item Name</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Image</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Chicken Fry</td>
-                                        <td>FastFood</td>
-                                        <td>250</td>
-                                        <td><img src="" alt="">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Rice with Curry</td>
-                                        <td>Dinner</td>
-                                        <td>450</td>
-                                        <td><img src="" alt="">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Chicken Fry</td>
-                                        <td>Breakfast</td>
-                                        <td>180</td>
-                                        <td><img src="" alt="">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Chicken Fry</td>
-                                        <td>Breakfast</td>
-                                        <td>180</td>
-                                        <td><img src="" alt="">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Chicken Fry</td>
-                                        <td>Breakfast</td>
-                                        <td>180</td>
-                                        <td><img src="" alt="">-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row justify-content-end">
-                        <div class="col-4">
-                            <div class="button-box text-right">
-                                <!-- If 1 row is clicked then the data of that row will be shown in bellow form and then can be updated. -->
-                                <a href="../Php/Update_Emp_Validation.php" class="btn btn-danger">Update</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center m-auto">
-                        <div class="col-5">
-                            <h5 class="text-center">Update Informations</h5>
-                            <form action="../Php/update_food_validation.php" method="POST">
-                                <div class="form-group">
-                                    <label for="ino">Item No</label>
-                                    <input type="text" name="ino" id="ino" class="form-control"> <!-- Will be Inactive on selection -->
+                    <div class="contentHolder">
+                        <div class="form_areaHolder">
+                            <form>
+                                <div class="form_fieldHolder">
+                                    <div class="filed_holder">
+                                        <div class="form_update">
+                                            <label for="item_no" class="title">Item No</label>
+                                            <input type="text" name="item_no" id="item_no" class="form_field ftp" disabled> <!-- Will be Inactive on selection -->
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="item_name" class="title">Item Name</label>
+                                            <input type="text" name="item_name" id="item_name" class="form_field ftp">
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="category" class="title">Category</label>
+                                            <select name="item_category" id="item_category" class="filter_select form_field searchBox ftp">
+                                                <option value="#">Select</option>
+                                                <option value="Breakfast">Breakfast</option>
+                                                <option value="Dinner">Dinner</option>
+                                                <option value="Launch">Launch</option>
+                                                <option value="Fast-Food">Fast Food</option>
+                                            </select>
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="price" class="title">Price</label>
+                                            <input type="number" name="price" id="price" class="form_field ftp"> 
+                                        </div>
+                                        <div class="form_update">
+                                            <label for="ingradients" class="title">Ingradients</label>
+                                            <div class="ingrad_check">
+                                                <div class="part_ing">
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Oil">Oil
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Salt">Salt
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Sugar">Sugar
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Chicken">Chicken
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Spices">Spices
+                                                    </label>
+                                                </div>
+                                                <div class="part_ing">
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Vinegar">Vinegar
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Rice">Rice
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Bread">Bread
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Cheese">Cheese
+                                                    </label>
+                                                    <label for="" class="check_label">
+                                                        <input type="checkbox" name="ingradient" value="Vegetables">Vegetables
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profileImage_holder">
+                                        <h5 id="tit">Item Image</h5>
+                                        <img src="" id="item_image_upload" alt="Item Image">
+                                        <input type="file" name="item_image_change"  accept="image/*" id="item_image_change" class="form_field file_ftp" onchange="changeImage()">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="item_name">Item Name</label>
-                                    <input type="text" name="item_name" id="item_name" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <select name="category" class="" class="form-control">
-                                        <option value="#">Select</option>
-                                        <option value="Breakfast">Breakfast</option>
-                                        <option value="Dinner">Dinner</option>
-                                        <option value="Launch">Launch</option>
-                                        <option value="Fast-Food">Fast-Food</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="number" name="price" id="price" class="form-control"> 
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Confirm" name="confirm">
+                                <div class="form_update btn_holderArea">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <a href="../../../pages/admin/food_item_layouts/Food_Menu.php" class="btn btn-info">Back</a>
+                                    <input type="submit" value="Save Changes" name="confirm" class="btn save_btn" onclick="updateItemData()">
                                 </div>
                             </form>
                         </div>
@@ -163,10 +158,15 @@
             </div>
         </div>
     </section>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
 </body>
 </html>
+<?php
+        }
+        else{
+            header('location: ../../../pages/admin/food_item_layouts/Food_Menu.php');
+        }
+    }
+    else{
+        header('location: ../../../common_pages/login.php');
+    }
+?>

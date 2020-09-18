@@ -23,6 +23,78 @@
         $item_obj = json_encode($item);
         echo $item_obj;
     }
+    // UPDATE 
+    if(isset($_POST['food_item'])){
+        $food_item = $_POST['food_item'];
+        $food_item_obj = (object) json_decode($food_item,true);
+        if($food_item_obj->id != null && $$food_item_obj->item_name != null && $food_item_obj->item_no != null && $food_item_obj->price != null && $food_item_obj->category != null){
+            $status = update_item($food_item_obj);
+
+            if($status){
+                echo 1;
+            }
+            else{
+                echo $status;
+            }
+        }
+        else{
+            echo "NULL OBJECT";
+        }
+    }
+
+    // REMOVE ITEM
+    if(isset($_POST['rmv_id'])){
+        $rmv_id = $_POST['rmv_id'];
+
+        $rmvStatus = delete_item($rmv_id);
+        if($rmvStatus){
+            echo 1;
+        }
+        else{
+            echo $rmvStatus;
+        }
+    }
+
+    // GET ITEM NO
+    if(isset($_POST['getItemNo'])){
+        $itemList = getFoodMenuList();
+        $last_item_no = end($itemList)['item_no'];
+        $arr = explode('-',$last_item_no);
+        $new_serial = $arr[1] + 1;
+        $new_itemNo = "FD-".$new_serial;
+        echo $new_itemNo;
+    }
+    // ADD NEW ITEM
+    if(isset($_POST['new_item'])){
+        $new_item = $_POST['new_item'];
+        $new_item_obj = (object)json_decode($new_item,true);
+        if( !empty($new_item_obj->item_name) && !empty($new_item_obj->item_no) && !empty($new_item_obj->price) && !empty($new_item_obj->category) && !empty($new_item_obj->ingradients) && !empty($new_item_obj->item_image)){
+            $addStatus = insert_food($new_item_obj);
+
+            if($addStatus){
+                echo 1;
+            }
+            else{
+                echo $addStatus;
+            }
+        }
+    }
+
+    // FILTER MENU LIST
+    if(isset($_POST['filter_type'])){
+        $type = $_POST['filter_type'];
+        if(!empty($type)){
+            $filteredList = filter_menu($type);
+            if(!empty($filteredList)){
+                echo printMenu($filteredList);
+            }
+            else{
+                echo "<tr><td colspan='7'><h1 style='text-align:center'>NO ITEMS FOUND IN THIS CATEGORY</h1></td></tr>";   
+            }
+        }
+    }
+
+
 
     // PRINT FUNCTION
     function printMenu($itemList){
@@ -53,7 +125,7 @@
                         "<td>". 
                             "<a href='Food_Menu.php?do=view&id={$item['id']}' class='btn btn-info'>View</a>".
                             "<a href='Update_Food_Item.php?id={$item['id']}' class='btn btn-info'>Edit</a>".
-                            "<button id='item-{$item['id']}' onclick='removeItem()' class='btn btn-danger'>Remove</button>".
+                            "<button id='item-{$item['id']}' onclick='removeItem({$item['id']})' class='btn btn-danger'>Remove</button>".
                         "</td>".
                     "</tr>";
         }

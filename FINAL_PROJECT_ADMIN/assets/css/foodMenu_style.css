@@ -18,10 +18,76 @@
     text-align: center;
 }
 #item_image{
-    width: 455px!important;
+    width: 455px;
     max-height: 500px;
 }
 .item_img h4{
     border-bottom: 2px dashed rgb(34, 34, 34);
     /* margin-bottom: 15px; */
+}
+
+/* UPDATE PAGE */
+.form_areaHolder{
+    width: 65%!important; 
+    background-color: white;
+    box-shadow: 0px 0px 6px 0px #0000004a;
+    margin: auto;
+    border-radius: 15px;
+    min-height: 20vh;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+#tit {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 30px!important;
+    border-bottom: 2px dashed rgb(63, 63, 63);
+}
+.form_areaHolder form{
+    width: 100%;
+}
+.form_fieldHolder{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.filed_holder{
+    width: 55%;
+}
+.profileImage_holder {
+    width: 42%!important;
+}
+#item_image_upload{
+    display: block;
+    height: 400px;
+    width: 375px;
+    margin-bottom: 15px;
+}
+.file_ftp{
+    border: none!important;
+}
+.btn_holderArea{
+    width: 100%;
+    text-align: center;
+}
+
+.ingrad_check{
+    width: 100%;
+    display: flex;
+}
+.part_ing{
+    width: 50%;
+}
+.check_label{
+    display: block;
+    font-size: 18px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 500;
+    margin: 10px 0px;
+}
+.save_btn{
+    background-color: rgb(9, 202, 83)!important;
+}
+.save_btn:hover{
+    background-color: rgb(1, 156, 61)!important;
 }
