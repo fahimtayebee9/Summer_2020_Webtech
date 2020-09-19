@@ -1,5 +1,4 @@
 <?php
-    include "../../Php/db/DB_Config.php";
     session_start();
     if(isset($_SESSION['username'])){
         $name = $_SESSION['username'];
@@ -11,9 +10,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="../../../assets/js/dashboard_script.js" ></script>
-    <script src="../../../assets/js/profit_filter.js" ></script>
-
+    <script src="../../../assets/js/admin/dashboard_script.js" ></script>
+    <script src="../../../assets/js/admin/profit_filter.js" ></script>
+    
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
     <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
     <link rel="stylesheet" href="../../../assets/css/profitPage_style.css">
@@ -30,23 +29,28 @@
         <div class="main">
             <div class="rmv-pad scrollable-area">
                 <div class="content-area scrollbar title-header-main">
-                    <div class="header-row title-header">
+                <div class="header-row title-header">
                         <div class="textarea">
-                            <h4>PROFIT DETAILS</h4>
+                            <h4>DASHBOARD</h4>
                             <p>All Informations are shown bellow.</p>
                         </div>
                         <div class="content-holder">
                             <div class="search-area">
-                                <form action="" method="POST">
+                                <form action="" method="POST" class="form_search">
                                     <p>Search By : </p>
-                                    <select name="searchBy" id="searchBy" class="btn">
+                                    <select name="searchBy" id="searchBy" class="btn searchBox">
                                         <option value="#"></option>
                                         <option value="Customer">Customer</option>
                                         <option value="Employee">Employee</option>
                                         <option value="Food Item">Food Item</option>
                                     </select>
-                                    <input type="search" name="search_box" id="search_box" class="btn" >
-                                    <input type="submit" value="Search" id="" class="btn_search btn">
+                                    <div class="search">
+                                        <input type="search" name="search_box" id="search_box" class="btn searchBox" onkeyup="search_data()" onblur="hide()" onreset="hide()">
+                                        <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
+                                        <div class="search_result" id="search_result">
+
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <span class="border-span"></span>
@@ -55,63 +59,56 @@
                                 <?php 
                                     if(isset($name)){
                                         echo $name;
-                                    }   
-                                    else{
-                                        $name = "Login";
-                                        echo $name;
-                                    }
+                                    } 
                                 ?>
                                 </a>
                                 <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
-                                    <?php
-                                        include "../include/profile_settings.php"
-                                    ?>
+                                    <a class="dropdown-item" href="../../../common_pages/profile_details.php">Profile Details</a>
+                                    <a class="dropdown-item" href="../../../common_pages/change_password.php">Change Password</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="../../../common_php/logout.php" id="logout">Logout</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="profit_area">
                         <div class="filter_profitArea">
+                            <h1>FILTER PROFITS</h1>
                             <form action="" onsubmit="">
                                 <div class="filter_part">
                                     <label for="year" class="title">Year</label>
-                                    <select name="year" id="year" onchange="get_yearlyProfit()">
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
+                                    <select name="year" id="set_year" onchange="get_yearlyProfit()">
+
                                     </select>
                                 </div>
-                                <div class="filter_part">
+                                <div class="filter_part month" id="month_area" >
                                     <label for="month" class="title">Month</label>
-                                    <select name="month" id="month" onchange="get_monthlyProfit()">
-                                        <option value="0"></option>
-                                        <option value="1">January</option>
-                                        <option value="2">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
+                                    <select name="month" id="month" disabled onchange="get_monthlyProfit()">
+                                        
                                     </select>
+                                </div>
+                                <div class="filter_Reset">
+                                    <label for="" class=""></label>
+                                    <input type="reset" value="RESET" class="btn" onclick="resetFilter()">
                                 </div>
                             </form>
                         </div>
                         <div class="profit_table" id="profit_table">
-                            
+                            <h1 id="title_header"></h1>
+                            <table class="tableData" id="pro_table">
+                                <thead class="thead-dark" id="thead_profit">
+                                    
+                                </thead>
+                                <tbody id="tbody_profit" class="tbody_des">
+                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
 </body>
 </html>
 <?php

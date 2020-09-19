@@ -45,7 +45,7 @@
                                         <option value="Food Item">Food Item</option>
                                     </select>
                                     <div class="search">
-                                        <input type="search" name="search_box" id="search_box" class="btn" onkeyup="search_data()" >
+                                        <input type="search" name="search_box" id="search_box" class="btn" onkeyup="search_data()"  onblur="hide()" onreset="hide()">
                                         <input type="submit" value="Search" id="" class="btn_search btn" onclick="showSearchData()">
                                         <div class="search_result" id="search_result">
 

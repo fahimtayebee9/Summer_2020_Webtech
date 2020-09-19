@@ -13,14 +13,120 @@
     <!-- <script src="../../../assets/js/dashboard_script.js" ></script> -->
     <script src="../../../assets/js/admin/package_script.js" ></script>
 
+    <link rel="stylesheet" href="../../../assets/css/package_style.css">
     <link rel="stylesheet" href="../../../assets/css/adminHome.css">
     <link rel="stylesheet" href="../../../assets/css/bookRooms_style.css">
     <link rel="stylesheet" href="../../../assets/css/join_requestStyle.css">
-    <link rel="stylesheet" href="../../../assets/css/package_style.css">
+    <link rel="stylesheet" href="../../../assets/css/employeeList.css">
 
     <title>Packages</title>
 </head>
+<?php
+    $option = isset($_GET['option']) ? $_GET['option'] : "show";
+
+    if($option == "show"){
+?>
 <body onload="loadPackages()">
+    <section class="left-sidebar">
+        <div class="dashboard_controller">
+            <?php
+                include "../include/left_menu.php";
+            ?>
+        </div>
+        <div class="main">
+            <div class="rmv-pad scrollable-area">
+                <div class="content-area scrollbar title-header-main">
+                    <div class="header-row title-header">
+                        <div class="textarea">
+                            <h4>Manage Package</h4>
+                            <p>All Informations are shown bellow.</p>
+                        </div>
+                        <div class="content-holder">
+                            <div class="search-area">
+                                <form action="" method="POST">
+                                    <p>Search By : </p>
+                                    <select name="searchBy" id="searchBy" class="btn searchBox">
+                                        <option value="#"></option>
+                                        <option value="Customer">Customer</option>
+                                        <option value="Employee">Employee</option>
+                                        <option value="Food Item">Food Item</option>
+                                    </select>
+                                    <input type="search" name="search_box" id="search_box" class="btn searchBox" >
+                                    <input type="submit" value="Search" id="submit" class="btn_search btn">
+                                </form>
+                            </div>
+                            <span class="border-span"></span>
+                            <div class="profile-settings dropdown">
+                                <a class="dropbtn" href="#" id="dropMenu" onclick="dropMenuAction()"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php 
+                                    if(isset($name)){
+                                        echo $name;
+                                    }   
+                                ?>
+                                </a>
+                                <div class="dropdown-content" id="dropContent" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="../../../common_pages/profile_details.php">Profile Details</a>
+                                    <a class="dropdown-item" href="../../../common_pages/change_password.php">Change Password</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="../../../common_php/logout.php" id="logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body_content">
+                    <div class="table_area">
+                        <h4>Package Details</h4>
+                        <div class="filter_area">
+                            <form action="" method="POST" class="filter-form">
+                                <div class="form-group">
+                                    <label for="filter" class="title">Filter Package : </label>
+                                    <select name="package_type" id="package_type" class="btn pack_select" onchange="getData_byType()">
+                                        <option value="all" selected></option>
+                                        <option value="Birthday">Birthday</option>
+                                        <option value="Wedding">Wedding</option>
+                                        <option value="Dinner">Dinner</option>
+                                    </select>
+                                    <button type="reset" class="btn btn-reset" onclick="resetFilter()">Reset</button>
+                                </div>
+                                <div class="form-group">
+                                    <a href="addEmployee.php" class="btn btn-success">Add New Employee</a>
+                                    <button class="btn btn-info" onclick="paySalary(<?=$adminId;?>)">Pay All Employee's Salary</button>
+                                </div>
+                            </form>
+                        </div>
+                        <form action="" method="" class="form_search form_package">
+                            
+                            <div class="form_filter">
+                                <a href="package_details.php?option=insert" class="view_btn add_btn">Add New Package</a>
+                            </div>
+                        </form>
+                        <table class="table_details table_join">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="">Package Name</th>
+                                    <th scope="">Category</th>
+                                    <th scope="">Facility</th>
+                                    <th scope="">Price</th>
+                                    <th scope="">Availability</th>
+                                    <th scope="">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="packageBody">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<?php
+    }
+    else if($option == "insert"){
+?>
+<body>
     <section class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -69,11 +175,7 @@
                     </div>
                 </div>
                 <div class="body_content">
-                    <?php
-                        $option = isset($_GET['option']) ? $_GET['option'] : "show";
-
-                        if($option == "show"){
-                    ?>
+                    
                             <div class="table_area">
                                 <h4>Package Details</h4>
                                 <form action="" method="" class="form_search form_package">
@@ -96,16 +198,13 @@
                                             <th scope="">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="packageBody" onload="loadPackages()">
+                                    <tbody id="packageBody">
                                         
                                     </tbody>
                                 </table>
                             </div>
                             <a href="package_details.php?option=insert" class="view_btn add_btn">Add New Package</a>
-                    <?php
-                        }
-                        else if($option == "insert"){
-                    ?>
+                    
                             <div class="package_insert">
                                 <form action="" class="form_addPackage" >
                                     <div class="form-group">
@@ -143,16 +242,15 @@
                                 </form>
                                 <a href="package_details.php" class="view_btn">Back</a>
                             </div>
-                    <?php
-                        }
-                    ?>
+                    
                 </div>
             </div>
         </div>
     </section>
-
-
 </body>
+<?php
+    }
+?>
 </html>
 <?php
     }

@@ -41,7 +41,7 @@ function setCustomerData(){
     var xhttp = new XMLHttpRequest();
     xhttp.open('POST', '../../../phpValidations/admin/other/dashBoard_data.php', true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhttp.send('getCustomer='+getEmp);
+    xhttp.send('getCustomer='+true);
 
     xhttp.onreadystatechange = function (){
         if(this.readyState == 4 && this.status == 200){
@@ -145,6 +145,7 @@ function search_data(){
             xhttp.open('POST', '../../../phpValidations/admin/other/Search_Controller.php', true);
             xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhttp.send('value='+value+"&type="+type);
+
             xhttp.onreadystatechange = function (){
                 if(this.readyState == 4 && this.status == 200){
                     if(this.responseText != ""){

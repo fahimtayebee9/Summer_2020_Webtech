@@ -194,7 +194,7 @@ function addNew_item(){
     var selected_item_str = selected_item.toString();
     var ingradients = selected_item_str.replaceAll(","," | ");
     var item_image = document.getElementById('item_image_change').files[0].name;
-
+    var img_tmp = document.getElementById('item_image_change').value;
     
     if(Boolean(item_no) && Boolean(item_name) && Boolean(price) && Boolean(category) && Boolean(ingradients)&& Boolean(item_image)){
         var item_add = {
@@ -203,14 +203,16 @@ function addNew_item(){
             "price" : price,
             "category" : category,
             "ingradients" : ingradients,
-            "item_image" : item_image
+            "item_image" : item_image,
+            "img_tmp" : img_tmp
         }
         var item_addObj = JSON.stringify(item_add);
+
         var xhttp = new XMLHttpRequest();
         xhttp.open('POST', '../../../phpValidations/admin/other/foodMenu_controller.php', true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhttp.send('new_item='+item_addObj);
-
+        
         xhttp.onreadystatechange = function (){
             if(this.readyState == 4 && this.status == 200){
                 if(this.responseText != ""){
@@ -224,7 +226,11 @@ function addNew_item(){
                             window.location = "../../../pages/admin/food_item_layouts/Food_Menu.php";
                         }
                     }
+                    else{
+                        alert(this.responseText);
+                    }
                 }else{
+                    alert(this.responseText);
                     alert("Item not Added..\n" + this.responseText);
                 }
             }	

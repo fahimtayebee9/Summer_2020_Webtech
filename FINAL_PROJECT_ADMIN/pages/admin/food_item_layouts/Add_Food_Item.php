@@ -78,7 +78,7 @@
                     </div>
                     <div class="contentHolder">
                         <div class="form_areaHolder">
-                            <form>
+                            <form id="add_itemForm" action="" method="POST" onsubmit="return addNew_item()" enctype="multipart/form-data">
                                 <div class="form_fieldHolder">
                                     <div class="filed_holder">
                                         <div class="form_update">
@@ -146,13 +146,13 @@
                                     <div class="profileImage_holder">
                                         <h5 id="tit">Item Image</h5>
                                         <img src="" id="item_image_upload" alt="Item Image">
-                                        <input type="file" name="item_image_change"  accept="image/*" id="item_image_change" class="form_field file_ftp" onchange="changeImage()">
+                                        <input type="file" name="item_image_c"  accept="image/*" id="item_image_change" class="form_field file_ftp" onchange="changeImage()">
                                     </div>
                                 </div>
                                 <div class="form_update btn_holderArea">
                                     <input type="hidden" name="id" id="id" value="">
                                     <a href="../../../pages/admin/food_item_layouts/Food_Menu.php" class="btn btn-info">Back</a>
-                                    <input type="submit" value="Add Item" name="confirm" class="btn save_btn" onclick="addNew_item()">
+                                    <input type="submit" value="Add Item" name="confirm" class="btn save_btn" onclick="">
                                 </div>
                             </form>
                         </div>

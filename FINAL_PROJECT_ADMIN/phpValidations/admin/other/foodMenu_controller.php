@@ -69,14 +69,27 @@
         $new_item = $_POST['new_item'];
         $new_item_obj = (object)json_decode($new_item,true);
         if( !empty($new_item_obj->item_name) && !empty($new_item_obj->item_no) && !empty($new_item_obj->price) && !empty($new_item_obj->category) && !empty($new_item_obj->ingradients) && !empty($new_item_obj->item_image)){
-            $addStatus = insert_food($new_item_obj);
-
-            if($addStatus){
-                echo 1;
-            }
-            else{
-                echo $addStatus;
-            }
+            
+            // $fileName = $_FILES['item_image_change']['name'];
+            // $fileTmpName  = $_FILES['item_image_change']['tmp_name'];
+            // $fileType = $_FILES['item_image_change']['type'];
+            
+            // $tmp = $new_item_obj->img_tmp;
+            
+            // $dest = "assets/images/foodMenu/". rand(1000,10000) ."_".$new_item_obj->item_image;
+            // $moved = move_uploaded_file($fileTmpName,$dest); //move_uploaded_file($tmp,$dest);
+            // if($moved){
+                $addStatus = insert_food($new_item_obj);
+                if($addStatus){
+                    echo 1;
+                }
+                else{
+                    echo $addStatus;
+                }
+            // }
+            // else{
+            //     echo "NOT UPLOADED";
+            // }
         }
     }
 
