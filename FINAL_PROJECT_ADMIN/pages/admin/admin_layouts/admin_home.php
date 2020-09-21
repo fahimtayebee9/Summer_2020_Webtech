@@ -136,7 +136,7 @@
                                         
                                     </tbody>
                                 </table>
-                                <a href="Employee.php" class="btn_view" >View Full Details</a>
+                                <a href="../../../pages/admin/employee_layouts/Employee.php" class="btn_view" >View Full Details</a>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                                     
                                     </tbody>
                                 </table>
-                                <input type="button" value="View All" id="view_customer" class="btn_view" onclick="viewCustomer()"></input >
+                                <a href="../../../pages/admin/food_item_layouts/Food_Menu.php" class="btn_view" >View Full Details</a>
                             </div>
                         </div>
                         <div class="tableView">
@@ -180,7 +180,7 @@
                                         
                                     </tbody>
                                 </table>
-                                <a href="Employee.php" class="btn_view" >View Full Details</a>
+                                <a href="../../../pages/admin/admin_layouts/notifications.php" class="btn_view" >View Full Details</a>
                             </div>
                         </div>
                     </div>

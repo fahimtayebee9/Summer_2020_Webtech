@@ -2,6 +2,8 @@
     session_start();
     if(isset($_SESSION['username'])){
         $name = $_SESSION['username'];
+        if(isset($_GET['id'])){
+            $apId = $_GET['id'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +25,7 @@
 
     <title>Join Application</title>
 </head>
-<body onload="getAllApplication('notifications')">
+<body onload="getApplicationById(<?=$apId;?>)">
     <div class="left-sidebar">
         <div class="dashboard_controller">
             <?php
@@ -73,46 +75,53 @@
                         </div>
                     </div>
                 </div>
-                <div class="filter_area">
-                    <form action="" method="POST" class="filter-form">
-                        <div class="form-group filter">
-                            <label for="filter" class="title lbl">Filter Employee's : </label>
-                            <select name="user_type" class="filter_select" id="filterData" onchange="filterRequest()">
-                                <option value="#">Select</option>
-                                <option value="Manager">Managers</option>
-                                <option value="Chef">Chef's</option>
-                                <option value="Staff">Staffs</option>
-                            </select>
-                        </div>
-                        <div class="form-group lbl">
-                            <input type="reset" value="Reset" name="reset" class="btn btn-info">
-                        </div>
-                    </form>
-                </div>
+                
                 <div class="table_area">
-                    <h4>Joining Applications</h4>
                     <table class="table_details table_join">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="">Application No</th>
-                                <th scope="">Applicant Name</th>
-                                <th scope="">Selected Post</th>
-                                <th scope="">Expected Salary</th>
-                                <th scope="">Action</th>
+                                <th colspan="2">Application Details</th>
                             </tr>
                         </thead>
                         <tbody id="applicationBody">
-                            
+                            <tr>
+                                <th>Applicant Name</th>
+                                <td><p id="name"></p></td>
+                            </tr>
+                            <tr>
+                                <th>Applicant Email</th>
+                                <td><p id="email"></p></td>
+                            </tr>
+                            <tr>
+                                <th>Selected Post</th>
+                                <td><p id="position"></p></td>
+                            </tr>
+                            <tr>
+                                <th>Expected Salary</th>
+                                <td><p id="expected_salary"></p></td>
+                            </tr>
+                            <tr>
+                                <th>Resume</th>
+                                <td>
+                                    <a href="" download class="fileDownload" id="cv_fileLink"><p id="cv_file"></p></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <a href="../../../pages/admin/admin_layouts/notifications.php" class="btn btn-info">Back</a>
+                                    <button class="btn btn-success" onclick="approveApplication(<?=$apId;?>)">Approve</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    
 </body>
 </html>
 <?php
+        }
     }
     else{
         header('location: ../../../common_pages/login.php');

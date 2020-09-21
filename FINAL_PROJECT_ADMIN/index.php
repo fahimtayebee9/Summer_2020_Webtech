@@ -11,7 +11,7 @@
     <script src="assets/js/indexJS.js"></script>
     <title>Home-Hotel Management System</title>
 </head>
-<body onload="loadPackage()">
+<body onload="loadPackage(1)">
 
 <!-- Content Area Start-->
     <!-- Header or Banner Area Start-->
