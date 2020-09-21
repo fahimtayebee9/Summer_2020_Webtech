@@ -271,7 +271,7 @@ body{
 }
 .sales-info{
     width: 16%!important;
-    padding: 35px;
+    padding: 30px;
     border: 1px solid greenyellow;
     border-bottom: 4px solid greenyellow;
     border-radius: 5px;
@@ -285,12 +285,12 @@ body{
     display: inline;
 }
 .sales-info p{
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 23px;
+    font-weight: 600;
     font-family: 'Poppins',sans-serif;
 }
 .sales-info p .amount{
-    font-size: 24px;
+    font-size: 34px;
     font-weight: 600;
     font-family: 'Poppins',sans-serif;
 }
@@ -369,4 +369,12 @@ body{
 }
 .search_data:active{
     background-color: #212738;
+}
+
+.title_amount{
+    margin: 0;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
 }

@@ -1,5 +1,4 @@
 <?php
-    include "../../../db/DB_Config.php";
     session_start();
     if(isset($_SESSION['username'])){
         $name = $_SESSION['username'];
@@ -187,20 +186,20 @@
                     </div>
                     <div class="sales-report">
                         <div class="sales-info">
-                            <p>$ <span class="amount">869</span></p>
-                            <p>Last month sales</p>
+                            <p class="title_amount">BDT.<span class="amount" id="amount_lastMonth">869</span></p>
+                            <p class="title_amount">Last month sales</p>
                         </div>
                         <div class="sales-info">
-                            <p>$ <span class="amount">869</span></p>
-                            <p>Annual Profit</p>
+                            <p class="title_amount">BDT.<span class="amount" id="amount_annual">869</span></p>
+                            <p class="title_amount">Annual Profit</p>
                         </div>
                         <div class="sales-info">
-                            <p>$ <span class="amount">869</span></p>
-                            <p>Average Profit</p>
+                            <p class="title_amount">BDT.<span class="amount" id="amount_avg">869</span></p>
+                            <p class="title_amount">Average Profit</p>
                         </div>
                         <div class="sales-info">
-                            <p>$ <span class="amount">869</span></p>
-                            <p>Average Monthly Expense</p>
+                            <p class="title_amount">BDT.<span class="amount" id="amount_exp">869</span></p>
+                            <p class="title_amount">Average Monthly Expense</p>
                         </div>
                     </div>
                 </div>

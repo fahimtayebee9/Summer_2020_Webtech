@@ -1,5 +1,7 @@
 <?php
     require_once('../../../services/admin/profit_service.php');
+    require_once('../../../services/admin/employee_service.php');
+
     $year_arr = [];
     
     if(isset($_POST['getAll'])){
@@ -43,6 +45,33 @@
             $printOption .= "<option value='{$yr_Obj['id']}'>$mn</option>";
         }
         echo $printOption;
+    }
+
+    if(isset($_POST['getProfits'])){
+        $lastMonths = getLastMonthProfit();
+
+        $currentYearProfit = get_yearlyProfit($lastMonths[0]['year_id']);
+        $annualProfit = 0;
+        foreach($currentYearProfit as $mn){
+            $annualProfit += $mn['profit'];
+        }
+
+        $avgProfit = $annualProfit / sizeof($currentYearProfit);
+
+        $empList = get_Employees();
+        $totalSalary = 0;
+        foreach($empList as $empSal){
+            $totalSalary = $empSal['salary'] + $empSal['bonus'] + $totalSalary;
+        }
+
+        $returnStr = (object)array();
+        $returnStr->lastMonth = $lastMonths[0]['profit'];
+        $returnStr->annual = $annualProfit;
+        $returnStr->avg = $avgProfit;
+        $returnStr->exp = $totalSalary;
+
+        echo json_encode($returnStr);
+
     }
 
     function printData($list,$val){
@@ -137,5 +166,4 @@
             return $mainStr;
         }
     }
-    
 ?>

@@ -1,23 +1,6 @@
 // VIEW PACKAGE 
-function viewButtonClick(){
-    var packageId = (event.target.id).split('-')[1];
-    alert(packageId);
-    var xhttp = new XMLHttpRequest();
-    xhttp.open('POST', '../../../phpValidations/admin/admin_validations/package_data.php', true);
-    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhttp.send('package_id='+packageId);
-
-    xhttp.onreadystatechange = function (){
-        if(this.readyState == 4 && this.status == 200){
-            if(this.responseText != ""){
-                document.getElementById('package_detailView').innerHTML = this.responseText;
-            }else{
-                document.getElementById('package_detailView').innerHTML = "";
-            }
-            alert(this.status);
-        }	
-        alert(this.responseText);
-    }
+function resetFilter_package(){
+    this.loadPackagesList();
 }
 
 // DELETE PACKAGE PERMANENTLY
@@ -126,22 +109,32 @@ function editPackageData(){
 }
 
 // ADD NEW PACKAGE USING AJAX AND JSON
-function addNewPackagee(){
-    var id = document.getElementById('id').value;
+function addNewPackagee(form){
+    var name = document.getElementById('name').value;
     var type = document.getElementById('add_type').value;
     var price = document.getElementById('price').value;
-    var facility = document.getElementById('facility').value;
-    var name = document.getElementById('name').value;
+
+    var checkboxes_pkg = document.getElementsByName('facility');
+    var selected_item = [];
+    for (var i=0; i<checkboxes_pkg.length; i++) {
+        if (checkboxes_pkg[i].checked) {
+            selected_item.push(checkboxes_pkg[i].value);
+        }
+    }
+
+    var facility = selected_item.toString().replaceAll(","," | ");
     var available = document.getElementById('available').value;
-    alert(id + " | " + name + " | " + type + " | " + price + " | " + facility + " | " + available);
-    if(type != "None" && price != null && facility != null && name != null){
+
+    var package_image = document.getElementById('package_imageUpload').files[0].name;
+
+    if(Boolean(type) && Boolean(price) && Boolean(facility) && Boolean(name) && Boolean(available)){
         var obj = {
-            'id': id,
             'name': name, 
             'type': type, 
             'price': price, 
             'facility': facility, 
-            'available': available
+            'available': available,
+            "pacakge_image" : package_image
         };
         var object = JSON.stringify(obj);
         
@@ -153,15 +146,30 @@ function addNewPackagee(){
         xhttp.onreadystatechange = function (){
             if(this.readyState == 4 && this.status == 200){
                 if(this.responseText != ""){
-                    if(this.responseText == 1){
-                        alert("Package Updated Successfully");
-                        window.location = "../../../pages/admin/other/package_details.php";
+                    var upl = uploadFile(form);
+                    if(upl){
+                        alert("Package Added Successfully");
                     }
                     else{
-                        alert("Package Not Updated...");
-                        window.location = "../../../pages/admin/other/package_details.php";
+                        alert("Package Added Successfully But image not uploaded");
                     }
+                    window.location = "../../../pages/admin/other/package_details.php";
+                    // if(this.responseText == 1){ 
+                    //     var upl = uploadFile(form);
+                    //     if(upl){
+                    //         alert("Package Added Successfully");
+                    //     }
+                    //     else{
+                    //         alert("Package Added Successfully But image not uploaded");
+                    //     }
+                    //     window.location = "../../../pages/admin/other/package_details.php";
+                    // }
+                    // else{
+                    //     alert("Package Not Added..." + this.responseText);
+                    //     window.location = "../../../pages/admin/other/package_details.php";
+                    // }
                 }else{
+                    alert(this.responseText);
                     loadPackages();
                 }
             }	
@@ -172,30 +180,59 @@ function addNewPackagee(){
     }
     
 }
-
-function loadPackages(){
-    var url = document.URL;
-    if(url.includes('?option=')){
-        return;
-    }
-    else{
-        var type = document.getElementById('package_type').value;
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '../../../phpValidations/admin/admin_validations/package_data.php', true);
-        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhttp.send('package_type='+type);
-    
-        xhttp.onreadystatechange = function (){
-            if(this.readyState == 4 && this.status == 200){
-                if(this.responseText != ""){
-                    document.getElementById('packageBody').innerHTML = this.responseText;
-                }else{
-                    document.getElementById('packageBody').innerHTML = "";
-                }
-            }	
+function uploadFile(fileobj){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "../../../phpValidations/admin/other/upload_file.php", true);
+    xmlhttp.send(new FormData(fileobj));
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            if (xmlhttp.responseText != "") {
+                alert("Uploaded");
+                return true;
+            }
+            else{
+                alert("Not Uploaded");
+                return false;
+            }
         }
     }
-    
+}
+
+
+function loadPackagesList(){
+    var type = document.getElementById('package_type').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../../../phpValidations/admin/admin_validations/package_data.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('package_type='+type);
+
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                document.getElementById('packageBody').innerHTML = this.responseText;
+            }else{
+                document.getElementById('packageBody').innerHTML = "";
+            }
+        }	
+    }
+}
+
+function loadPackages(){
+    var type = document.getElementById('package_type').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../../../phpValidations/admin/admin_validations/package_data.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('package_type='+type);
+
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                document.getElementById('packageBody').innerHTML = this.responseText;
+            }else{
+                document.getElementById('packageBody').innerHTML = "";
+            }
+        }	
+    }
 }
 
 function getData_byType(){
@@ -212,17 +249,29 @@ function getData_byType(){
             }else{
                 document.getElementById('packageBody').innerHTML = "";
             }
-            alert(this.status);
+        }	
+    }
+}
+
+function loadPackageById(package_id){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../../../phpValidations/admin/admin_validations/package_data.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('package_id='+package_id);
+
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                document.getElementById('packageBody').innerHTML = this.responseText;
+            }else{
+                document.getElementById('packageBody').innerHTML = "";
+            }
         }	
     }
 }
 
 // ADD NEW INPUT AREA
-function add_input(){
-    var element = document.getElementById('add_facilityArea');
-    var count = element.getElementsByTagName('input').length;
-    alert(count);
-    count -= 1;
-    var html = '<input type="text" name="mytext[]"/>';
-    element.append(html);
+function changeImage(){
+    var file = document.getElementById('package_imageUpload');
+    document.getElementById('package_image').src = window.URL.createObjectURL(file.files[0]);
 }

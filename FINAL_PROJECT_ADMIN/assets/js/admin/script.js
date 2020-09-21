@@ -11,12 +11,27 @@ function validate(){
     var passValidate = passwordValidation();
     var dobValidate = dobValidation();
     var fileUpload = fileUploadValidation();
+    var phoneValid = checkNumber();
     var confirmPassValidate = confirmPasswordValidation();
-    if(nameValidate && emailValidate && genderValidate && passValidate && dobValidate && fileUpload && confirmPassValidate){
+    if(nameValidate && emailValidate && genderValidate && passValidate && dobValidate && fileUpload && confirmPassValidate && phoneValid){
         return true;
     }
     else{
         return false;
+    }
+}
+
+// CHECK PHONE NUMBER
+function checkNumber(){
+    var phone = document.getElementById('phone').value;
+    if(phone.length < 11 && phone.length > 11){
+        document.getElementById('phoneError').innerHTML = "Phone Number Can not be greater than 11 digits or less";
+        document.getElementById('phoneError').style.color = "red";
+        document.getElementById('phoneError').style.fontWeight = "600";
+    }
+    else{
+        document.getElementById('phoneError').innerHTML = "";
+        return true;
     }
 }
 
@@ -188,7 +203,7 @@ function emailExist(){
     }
     else{
         var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '../../Php/emailCheck.php', true);
+        xhttp.open('POST', '../common_php/emailCheck.php', true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhttp.send('email='+email);
 
@@ -216,23 +231,6 @@ function emailExist(){
     }
 }
 
-// USERNAME VALIDATION
-function getUsername(emailAddress){
-    var username = emailAddress.split('@')[0];
-    return username;
-}
-function setUsername(){
-    document.getElementById('username').value = document.getElementById('suggestUsername').innerHTML;
-}
-function hoverText(){
-    document.getElementById('suggestUsername').style.color = 'darkslategrey';
-    document.getElementById('suggestUsername').style.fontWeight='600';
-    document.getElementById('suggestUsername').style.cursor = 'pointer';
-}
-function hoverRemove(){
-    document.getElementById('suggestUsername').style.color = 'black';
-    document.getElementById('suggestUsername').style.fontWeight='500';
-}
 
 // PASSWORD VALIDATION
 function passwordValidation(){
@@ -438,7 +436,6 @@ function updateProfile(){
         var uid=document.getElementById('uid').value;
         var name = document.getElementById('name').value;
         var email = document.getElementById('email').value;
-        var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         var confirmPass = document.getElementById('confirm_password').value;
         var gender = genderPicked;

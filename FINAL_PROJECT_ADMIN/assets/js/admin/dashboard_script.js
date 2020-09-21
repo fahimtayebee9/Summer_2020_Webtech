@@ -12,6 +12,7 @@ function loadData(){
     countAllFood();
     setCustomerData();
     setFoodMenuData();
+    setProfitDetails();
 }
 
 
@@ -208,4 +209,29 @@ function getUserData(id){
 
 function showSearchData(){
     
+}
+
+function setProfitDetails(){
+    var getEmp = "Admin Home";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '../../../phpValidations/admin/profit_detail/profit_controller.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('getProfits='+getEmp);
+
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                var response = JSON.parse(this.responseText);
+                document.getElementById('amount_lastMonth').innerHTML = response.lastMonth;
+                document.getElementById('amount_annual').innerHTML = response.annual;
+                document.getElementById('amount_avg').innerHTML = response.avg;
+                document.getElementById('amount_exp').innerHTML = response.exp;
+            }else{
+                document.getElementById('amount_lastMonth').innerHTML = "";
+                document.getElementById('amount_annual').innerHTML = "";
+                document.getElementById('amount_avg').innerHTML = "";
+                document.getElementById('amount_exp').innerHTML = "";
+            }
+        }	
+    }
 }

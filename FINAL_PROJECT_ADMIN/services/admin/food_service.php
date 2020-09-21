@@ -7,6 +7,7 @@
         $sql = "insert into food_menu(id,item_no,item_name,price,category,ingradients,item_image,rating) values('','$item->item_no', '$item->item_name', '$item->price','$item->category', '$item->ingradients', '$item->item_image','0')";
         $result = mysqli_query($db,$sql);
         if($result){
+            mysqli_close($db);
             return $result;
         }
         else{
@@ -26,7 +27,8 @@
             echo 1;
         }
         else{
-            echo mysqli_error($db);
+            return mysqli_error($db);
+            mysqli_close($db);
         }
     }
 
@@ -38,7 +40,7 @@
             echo "No Data Found..";
         }
         else{
-
+            mysqli_close($db);
         }
     }
 
@@ -47,6 +49,7 @@
         $del_sql = "delete from food_menu where id='$item_no'";
         $del_result = mysqli_query($db,$del_sql);
         if($del_result){
+            mysqli_close($db);
             return $del_result;
         }
         else{
@@ -66,6 +69,7 @@
             while($row = mysqli_fetch_assoc($result)){
                 array_push($items,$row);
             }
+            mysqli_close($db);
             return $items;
         }
     }
@@ -80,7 +84,7 @@
 		while($row = mysqli_fetch_assoc($result)){
 			array_push($menu_items, $row);
         }
-        
+        mysqli_close($db);
         return $menu_items;
     }
     
@@ -89,8 +93,10 @@
         $db = dbConnection();
         $sql = "select * from food_menu";
         $result = mysqli_query($db,$sql);
-
-        echo mysqli_num_rows($result);
+        $count =  mysqli_num_rows($result);
+        mysqli_close($db);
+        return $count;
+        
     }
 
     function getItem_byId($f_id){
@@ -111,6 +117,7 @@
             $menu_item->ingradients = $row['ingradients'];
             $menu_item->item_image = $row['item_image'];
         }
+        mysqli_close($db);
         return $menu_item;
     }
 ?>

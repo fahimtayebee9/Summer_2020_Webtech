@@ -1,12 +1,17 @@
+<?php
+    require_once("db/config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="assets/css/new_styles.css">
+    <script src="assets/js/indexJS.js"></script>
     <title>Home-Hotel Management System</title>
 </head>
-<body >
+<body onload="loadPackage()">
 
 <!-- Content Area Start-->
     <!-- Header or Banner Area Start-->
@@ -76,62 +81,12 @@
                 
             </div>
         </div>
-        
-            <?php
-                $packageData = fopen("assets/files/packages.txt", "r") or die("Unable to open file!");
-                $i = 1;
-                $colName = 'margin-up'; 
-                while(!feof($packageData)) {
-                    $package = fgets($packageData);
-                    $package = explode('|', $package);
-                    $title = $package[0];
-                    $date = $package[1];
-                    $stay = $package[2];
-                    $fac = explode(',', $package[3]);
-            ?>
-                <div class="package-boxArea">
-                    <?php
-                        $colCount = 1;
-                        for($colCount=1; $colCount <=2; $colCount++){
-                    ?>  
-                        <div class="package-width <?php echo $colName?>">
-                            <div class="package-info">
-                                <img src="<?php echo "assets/images/pack-".$i.".jpg"?>" class="img-fluid w-75" alt="<?php echo "image not Foundd pack-".$i.".jpg"?>">
-                                <h4><?php echo $title?></h4>
-                                <p>Available From : <?php echo $date?></p>
-                                <p>Minimum Stay : <?php echo $stay?></p>
-                                <div class="facility_row">
-                                    <p>Facilities :</p>
-                                    <ul class="facilities-list">
-                                    <?php foreach($fac as $value){ ?>
-                                        <li><p><?= $value; ?></p></li>
-                                    <?php } ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                            $no_of_lines = count(file('assets/files/packages.txt')); 
-                            if($no_of_lines == $i){
-                                break;
-                            }
-                            else{
-                                $i++;
-                            }
-                        }
-                    ?>
-                </div>
-            <?php
-                    if($no_of_lines == $i){
-                        break;
-                    }
-                }
-                fclose($packageData);
-            ?>
+            <div class="package_controller" id="packages">
+
+            </div>
             <div class="load-btn-area">
                 <a href="assets/layouts/packages.php" class="btn btn-custom btn-view">View More</a>
             </div>
-        
     </section>
     <!-- Packages Section End-->
 

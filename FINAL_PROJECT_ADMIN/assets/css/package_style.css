@@ -1,19 +1,49 @@
 body{
     background-color: rgb(245, 245, 245);
 }
-.pack_select{
-    width: 72%!important;
+.pack_select {
+    width: 35%!important;
 }
 .form_package{
     width: 20%!important;
 }
-.body_content{
-    height: auto;
-    width: 100%;
-    padding-bottom: 50px;
+.form_filter{
+    width: 40%;
+    display: flex;
+    align-items: center;
 }
-.table_join{
-    margin-bottom: 40px!important;
+.body_content {
+    height: auto;
+    width: 95%;
+    padding-bottom: 50px;
+    margin-top: 45px;
+    margin-bottom: 45px;
+    background-color: white;
+    box-shadow: 0px 0px 6px 0px #0000003d;
+    padding: 25px;
+    border-radius: 15px;
+}
+.body_content h4{
+    font-size: 30px;
+    margin-top: 0px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+}
+.packageTable{
+    width: 100%;
+    margin-top: 30px;
+}
+table, th, tr, td {
+    border-collapse: collapse;
+    border-bottom: 2px solid #343a40;
+    margin: auto;
+    text-align: left;
+    padding: 20px 0px;
+    padding-left: 15px;
+    font-size: 20px;
+    text-align: center;
 }
 .add_btn{
     height: auto;
@@ -36,7 +66,11 @@ body{
     padding: 8px;
     color: white;
 }
-
+.action_area{
+    margin: auto;
+    margin-top: 25px;
+    text-align: center;
+}
 .edit_btn{
     font-size: 18px;
     font-weight: 600;
@@ -52,8 +86,18 @@ body{
 .edit_btn:hover{
     background-color: rgb(0, 99, 156);
 }
-
-
+.pack_facility {
+    list-style: circle;
+    padding: 0px;
+    display: flex;
+    margin: 0;
+}
+.pack_facility li p{
+    margin: 0;
+}
+table, th, tr, td  p{
+    margin: 0;
+}
 /* ADD PACKGE */
 .title{
     font-size: 18px;
@@ -74,6 +118,7 @@ input[type="text"]{
     padding: 8px 0px;
     padding-left: 10px;
     width: -webkit-fill-available;
+    height: auto!important;
 }
 .pack_typeAdd{
     width: 100%!important;
@@ -107,4 +152,9 @@ input[type="text"]{
     font-size: 18px;
     font-weight: 500;
     font-family: 'Poppins',sans-serif;
+}
+#package_image{
+    height: 380px;
+    width: 410px;
+    margin-bottom: 20px;
 }

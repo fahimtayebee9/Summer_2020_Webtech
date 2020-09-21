@@ -1,5 +1,4 @@
 <?php
-    //include '../db/DB_Config.php';
     include '../../../db/config.php';
     
     function get_profits(){
@@ -10,18 +9,19 @@
         while($row = mysqli_fetch_assoc($result)){
             array_push($profits,$row);
         }
+        mysqli_close($db);
         return $profits;
     }
 
     function get_yearlyProfit($year){
         $db = dbConnection();
-
         $sql = "SELECT * FROM monthly_profit where year_id='$year'";
         $result = mysqli_query($db,$sql);
         $months = [];
         while($row = mysqli_fetch_assoc($result)){
             array_push($months,$row);
         }
+        mysqli_close($db);
         return $months;
     }
 
@@ -35,6 +35,7 @@
         while($row = mysqli_fetch_assoc($result)){
             array_push($days,$row);
         }
+        mysqli_close($db);
         return $days;
     }
 
@@ -77,6 +78,25 @@
                 }
             }
         }
+        mysqli_close($db);
     }    
+
+    function getLastMonthProfit(){
+        $db = dbConnection();
+
+        if(!$db){
+            echo "DB NOT CONNECTED";
+        }
+
+        $lastMonthSql = "SELECT * FROM monthly_profit ORDER BY id DESC LIMIT 1";
+        $resultMonth = mysqli_query($db,$lastMonthSql);
+
+        $monthLast = [];
+        while($row = mysqli_fetch_assoc($resultMonth)){
+            array_push($monthLast,$row);
+        }
+        mysqli_close($db);
+        return $monthLast;
+    }   
 
 ?>

@@ -1,32 +1,31 @@
 <?php
-    include "db/DB_Config.php";
+    include "../db/DB_Config.php";
     session_start();
     if(isset($_POST['register'])){
         $name               = $_POST['name'];
         $email              = $_POST['email'];
         $password           = $_POST['password'];
-        $user               = strstr($email, '@', true);
-        $username           = $_POST['username'];
-        $role               = "Admin";
+        $phone              = $_POST['phone'];
+        $role               = "Customer";
         $confirmPassword    = $_POST['confirm_password'];
         $gender             = $_POST['gender'];
         $day                = $_POST['day'];
         $month              = $_POST['month'];
         $year               = $_POST['year'];
-        $dob                = NULL;
+        $dob                = $year."-".$month."-".$day;
         $profile_picture    = $_FILES["profile_picture"]["name"];
         $errorPassCode = 0;
-        if(empty($name) || empty($email) || empty($password) || empty($username) || empty($gender) ||empty($day) || empty($month) || empty($year) || empty($profile_picture)){
+        if(empty($name) || empty($email) || empty($password) || empty($gender) ||empty($day) || empty($month) || empty($year) || empty($profile_picture)){
             $_SESSION['errorMessage'] = "Please Insert All Informations...";
             $errorPassCode = 1;
-            header('location: ../pages/other/register.php');
+            header('location: ../common_pages/register.php');
         }
         // Password Match Checking
         else if($password != $confirmPassword){
             $_SESSION['errorMessage2'] = "Password did not matched...";
             $errorPassCode = 1;
             echo "Done...12";
-            header('location: ../pages/other/register.php');
+            header('location: ../common_pages/register.php');
         }
         else{
             $validName = validateName($name);
@@ -35,7 +34,7 @@
             $validDate = validateDate($day,$month,$year);
             $errorCode=NULL;
             if($validName == $validEmail = $validPassword = $validDate){
-                $sql = "SELECT email,username FROM users where email='$email';";
+                $sql = "SELECT email FROM users where email='$email';";
                 $result = mysqli_query($db, $sql);
                 while($data = mysqli_fetch_assoc($result)){
                     $email_db    = $data['email'];
@@ -50,14 +49,7 @@
                         $_SESSION['dob'] = $dob;
                         $errorCode = 404;
                         echo $errorCode."<br>".$_SESSION['errorEmail'];
-                        header('location: ../pages/other/register.php');
-                        break;
-                    }
-                    else if($username == $username_db || $user == $username_db){
-                        $_SESSION['errorUsername'] = 'Username Already Exists!Try another Username...';
-                        $errorCode = 40444;
-                        echo $errorCode."<br>".$_SESSION['errorUsername'];
-                        header('location: ../pages/other/register.php');
+                        header('location: ../common_pages/register.php');
                         break;
                     }
                     else{
@@ -69,53 +61,27 @@
                     echo "Error Code 404";
                 }
                 else{
-                    $query      = "INSERT INTO users (name, username, email,  password,role) VALUES ( '$name', '$username', '$email', '$password', '$role' )";
-                    $adduser    = mysqli_query($db, $query);
-                    if ( $adduser ){
-                        $getIdQuery     = "SELECT id,email,username FROM users where email='$email' and username='$username';";
-                        $resultIdSet    = mysqli_query($db, $getIdQuery);
-                        // $id = NULL;
-                        if(mysqli_num_rows($resultIdSet) == 1){
-                            $row = mysqli_fetch_assoc($resultIdSet);
-                            $id = $row['id'];
-                        }
-                        else{
-                            while($row = mysqli_fetch_assoc($resultIdSet)){
-                                if($row['email'] == $email && $row['username'] == $username){
-                                    $id = $row['id'];
-                                }
+                    $fileName = $_FILES["profile_picture"]["name"]; 
+                    $image_tmp = $_FILES['profile_picture']['tmp_name']; 
+                    $dest = "../assets/uploads/".rand(1000,10000)."_".$fileName;
+                    $arr = explode('.',$fileName);
+                    $fileType = strtolower(end($arr));
+                    $allowTypes = array("jpg","png","jpeg","gif"); 
+                    if(in_array($fileType, $allowTypes)){
+                        if(move_uploaded_file($image_tmp,$dest)){
+                            $query      = "INSERT INTO users (name, email,phone , password, dateOfBirth, profile_picture, userType) VALUES ( '$name', '$email', '$phone','$password', '$dob' ,'$profile_picture', '$role' )";
+                            $adduser    = mysqli_query($db, $query);
+                            if ( $adduser ){
+                                echo "<script>alert('Registration Success')</script>";
+                                header('location: ../common_pages/login.php');
                             }
-                        }
-                        if(isset($id)){
-                            $balance = 0;
-                            if(!empty($_FILES["profile_picture"]["name"])){
-                                $fileName = basename($_FILES["profile_picture"]["name"]); 
-                                $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-                                
-                                // Allow certain file formats 
-                                $allowTypes = array('jpg','png','jpeg','gif'); 
-                                if(in_array($fileType, $allowTypes)){ 
-                                    $image = $_FILES['profile_picture']['tmp_name']; 
-                                    $imgContent = addslashes(file_get_contents($image)); 
-                                
-                                    // Insert image content into database 
-                                    $add_query  = "INSERT INTO admininfo (name, profile_picture, balance, userId ) VALUES ( '$name', '$profile_picture', '$balance', '$id')";
-                                    $add_admin_data    = mysqli_query($db, $add_query);
-                                    if($add_admin_data){
-                                        $_SESSION['percentage'] = 100;
-                                        $percentage = 100;
-                                        setcookie('percentage', $percentage, time() + (3600 * 30), "/");
-                                        header('location: ../pages/other/login.php');
-                                    }
-                                }
-                                else{ 
-                                    $_SESSION['errorMessage'] = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-                                } 
+                            else{
+                                die("Connection Failed. Please try again later..." . mysqli_error($db));
                             }
+                        }else{
+                            $_SESSION['errorMessage'] = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+                            header('location: ../common_pages/register.php');
                         }
-                    }
-                    else{
-                        die("Connection Failed. Please try again later..." . mysqli_error($db));
                     }
                 }
             }
@@ -183,4 +149,5 @@
         }
         return $validDateCode;
     }
+    mysqli_close($db);
 ?>

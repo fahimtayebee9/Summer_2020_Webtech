@@ -3,7 +3,7 @@
 	$host	= "localhost";
 	$dbuser = "root";
 	$dbpass = "";
-	$dbname	= "hms_project";
+	$dbname	= "hms";
 
 	function dbConnection(){
 		global $host;

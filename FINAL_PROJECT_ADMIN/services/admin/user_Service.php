@@ -51,7 +51,7 @@
 		while($row = mysqli_fetch_assoc($result)){
 			array_push($users, $row);
         }
-        
+        mysqli_close($conn);
         return $users;
     }
 
@@ -70,7 +70,7 @@
 		while($row = mysqli_fetch_assoc($result)){
 			array_push($users, $row);
         }
-        
+        mysqli_close($conn);
         return $users;
     }
 
@@ -88,7 +88,7 @@
 		while($row = mysqli_fetch_assoc($resultEmp)){
 			array_push($userEmp, $row);
         }
-        
+        mysqli_close($conn);
         return $userEmp;
     }
 
@@ -111,7 +111,7 @@
             $user->profile_picture   = $row['profile_picture'];
             $user->userType          = $row['userType'];
         }
-        
+        mysqli_close($conn);
         return $user;
     }
 ?>

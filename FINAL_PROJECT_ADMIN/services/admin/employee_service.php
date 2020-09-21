@@ -15,7 +15,7 @@
 		while($row = mysqli_fetch_assoc($result)){
 			array_push($users, $row);
         }
-        
+        // mysqli_close($conn);
         return $users;
     }
     
@@ -34,7 +34,7 @@
 		while($row = mysqli_fetch_assoc($result)){
 			array_push($emp, $row);
         }
-        
+        // mysqli_close($conn);
         return $emp;
     }
 
@@ -62,7 +62,7 @@
                 $emp->rating = $row['rating'];
                 $emp->balance = $row['balance'];
             }
-            
+            // mysqli_close($conn);
             return $emp;
         }
     }
@@ -84,7 +84,7 @@
 
         $sqlEmp = "update employee_details set role='$role', salary='$salary', bonus='$bonus', balance='$balance', rating='$rating' where user_id='$user_id'";
         $status = mysqli_query($conn, $sqlEmp);
-
+        // mysqli_close($conn);
         return $status;
     }
 
@@ -112,7 +112,7 @@
         else {
             $validRemove = false;
         }
-
+        // mysqli_close($conn);
         return $validRemove;
     }
 
@@ -135,6 +135,7 @@
             $sqlEmp = "insert into employee_details (id,role,salary,bonus,balance,rating,user_id) values('','$empDataAdd->role','$empDataAdd->salary','0','0','0','$id')";
             $statusEmp = mysqli_query($conn, $sqlEmp);
         }
+        // mysqli_close($conn);
         return $statusEmp;
     }
 

@@ -48,10 +48,14 @@
         $sql = "select * from package where id='$id'";
         $result = mysqli_query($conn, $sql);
 
-        $package = [];
+        $package = (object)array();
 
 		while($row = mysqli_fetch_assoc($result)){
-            array_push($package, $row);
+            $package->name = $row['name'];
+            $package->type = $row['type'];
+            $package->facility = $row['facility'];
+            $package->price = $row['price'];
+            $package->available = $row['available'];
         }
         
         return $package;
@@ -92,9 +96,14 @@
             echo "DB connection error";
         }
 
-        $sql = "insert into package  (id,name,type,facility,price,available) values('','{$object->name}','{$object->type}','$object->facility','{$object->price}','{$object->available}')";
+        $sql = "insert into package  (id,name,type,facility,price,package_image,available) values('','$object->name','$object->type','$object->facility','$object->price','$object->pacakge_image','$object->available')";
         $result = mysqli_query($conn,$sql);
-
+        if($result){
+            echo $result;
+        }
+        else{
+            echo mysqli_error($conn);
+        }
         return $result;
     }
 ?>

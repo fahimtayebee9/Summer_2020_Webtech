@@ -1,14 +1,14 @@
-<?php
-    include "../../Php/db/DB_Config.php";
-?>
 <!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="../../../assets/js/script.js" type="text/javaScript"></script>
-    <link rel="stylesheet" href="../../../assets/css/logRegStyle.css">
+
+    <script src="../assets/js/admin/script.js" type="text/javaScript"></script>
+
+    <link rel="stylesheet" href="../assets/css/logRegStyle.css">
+
     <title>Hotel Management System Portal</title>
 </head>
 <body>
@@ -19,17 +19,17 @@
                 <p>***Register as Customer To Continue***</p>
             </div>
             <!-- ../Php/register_validation.php -->
-            <form action="../../Php/register_validation.php" class="" method="POST" enctype="multipart/form-data" name="reg_form" onsubmit="return validate()">
+            <form action="../common_php/register_validation.php" class="" method="POST" enctype="multipart/form-data" name="reg_form" onsubmit="return validate()">
                 <div class="inputField_area">
                     <div class="divider">
                         <div class="form-group">
                             <label for="name" class="title">Full Name</label>
-                            <input type="text" name="name" id="name" class="form-control" oninput="nameValidation()" onkeyup="nameErrorRemover()"  required="required" value="<?php if(isset($_SESSION['name'])){ echo $_SESSION['name']; }?>">
+                            <input type="text" name="name" id="name" class="form-control" oninput="nameValidation()" onkeyup="nameErrorRemover()"  required="required" value="">
                             <p id="nameError"></p>
                         </div>
                         <div class="form-group">
                             <label class="title">Email Address</label>
-                            <input type="email" name="email" id="email" class="form-control" required="required" placeholder="example@domain.com"  onkeyup="emailExist()" onblur="emailBlurText()"  value="<?php if(isset($_SESSION['email'])){ echo $_SESSION['email']; }?>">
+                            <input type="email" name="email" id="email" class="form-control" required="required" placeholder="example@domain.com"  onkeyup="emailExist()" onblur="emailBlurText()"  value="">
                             <p id="emailError"></p>
                             <?php
                                 session_start();
@@ -42,23 +42,9 @@
                             ?>
                         </div>
                         <div class="form-group">
-                            <label class="title">Username</label>
-                            <input type="text" name="username" class="form-control" id="username" value="<?php if(isset($_SESSION['username'])){ echo $_SESSION['username']; }?>">
-                            <p id="userNameError"></p>
-                            <div class="suggest-area">
-                                <p id="default"></p>
-                                <p id="suggestUsername" onmouseover="hoverText()" onclick="setUsername()" onmouseover="hoverText()" onmouseout="hoverRemove()"></p>  
-                            </div>
-                            <?php 
-                                session_start();
-                                if(isset($_SESSION['errorUsername'])){
-                                    ?>
-                                    <p class="text-danger"><?php echo $_SESSION['errorUsername'];?></p>
-                                    <p class="text-info"><?php echo 'Suggested Username : '.$_SESSION['suggest'];?></p>
-                            <?php
-                                }
-                                session_destroy();
-                            ?>
+                            <label class="title">Phone Number</label>
+                            <input type="text" name="phone" class="form-control" id="phone" value="" onkeyup="checkNumber()" onblur="removeErrorNumber()">
+                            <p id="phoneError"></p>
                         </div>
                         <div class="form-group">
                             <label class="title">Gender</label>
